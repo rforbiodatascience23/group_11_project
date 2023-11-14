@@ -5,5 +5,5 @@ library(readr)
 
 ```{r}
 
-raw_data1 <- read_tsv(file = "~/projects/group_11_repository/data/_raw/E-MTAB-5577-raw-counts.tsv",show_col_types = FALSE)
+raw_data <- read_tsv(file = "~/projects/group_11_repository/data/_raw/E-MTAB-5577-raw-counts.tsv",show_col_types = FALSE)
 ```
