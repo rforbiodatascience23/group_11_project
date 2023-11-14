@@ -1,11 +1,21 @@
 ```{r}
 library(tidyverse)
 library(readr)
+library(readxl)
 ```
 
 ```{r}
+# Download Byar & Greene prostate cancer data
+url <- "https://hbiostat.org/data/repo/prostate.xls"
+destination <- "../data/_raw/prostate.xls"
 
-raw_data <- read_csv(file = "~/projects/group_11_repository/data/_raw/prostate.csv",show_col_types = FALSE)
+download.file(url, destination, method = "auto")
+```
+
+```{r}
+# NOTE: You open prostate.xls and save it again to xlsx
+prostate_data <- read_excel('../data/_raw/prostate.xlsx')
+
 ```
 
 ```{r}
