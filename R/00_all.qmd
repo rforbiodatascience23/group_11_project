@@ -1,0 +1,37 @@
+---
+title: "00_all"
+format: html
+editor: visual
+---
+
+# Packages
+
+```{r}
+#| message: false
+library("tidyverse")
+library("dplyr")
+library("stringr")
+library("tidyr")
+library("readxl")
+library("purrr")
+```
+
+# Creating directories
+
+```{r}
+createOrCheckDirectory <- function(directory) {
+  if (!file.exists(directory)) {
+    dir.create(directory, recursive = TRUE)
+    cat(paste("Directory '", directory, "' created.\n", sep = ""))
+  } else {
+    cat(paste("Directory '", directory, "' already exists.\n", sep = ""))
+  }
+}
+createOrCheckDirectory("../data/_raw")
+createOrCheckDirectory("../results")
+createOrCheckDirectory("../doc")
+```
+```{r}
+
+```
+
