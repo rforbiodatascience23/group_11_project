@@ -1,13 +1,16 @@
 ```{r}
 library(tidyverse)
 library(readr)
+library(vroom)
 ```
+
 
 ```{r}
 
-raw_data <- read_csv(file = "~/projects/group_11_repository/data/_raw/prostate.csv",show_col_types = FALSE)
+raw_data <- as.data.frame(read_csv(file = "~/projects/group_11_repository/data/_raw/prostate.csv", show_col_types = FALSE))
+
 ```
 
 ```{r}
-
+raw_data <- vroom("~/projects/group_11_repository/data/_raw/prostate.csv", delim =';', show_col_types = FALSE)
 ```
