@@ -13,6 +13,22 @@ library("readr")
 ```
 
 ```{r}
-clean_data <- raw_data |>
-  drop_na(`Gene Name`)
+prostate_data_clean <- prostate_data |>
+  separate("rx", into = c("Treatment regime", "mg","Drug"), sep =" ") |>
+  select(-c("mg"))
+
+
+prostate_data_clean2 <- prostate_data_clean |>
+  str_replace("Treatment regime", "placebo", "0") |>
+  
+
+    #mutate("Treatment regime" = case_when("Treatment regime"=="placebo" ~0, TRUE~ as.numeric(`Treatment regime`)))
+
+
+ # mutate("Treatment regime" = case_when("Treatment regime" == "placebo" ~ "0"))
+
+  
+  #case_when(rx == "Placebo" ~ 0)
+  #separate("rx", into = c("Treatment regime", "Drug"), sep =" ")
+ 
 ```
