@@ -33,3 +33,24 @@ prostate_data_clean <- prostate_data_clean |>
   mutate(`Drug` = replace_na(`Drug`,0))
 
 ```
+
+```{r}
+#| label: Modifying Status column, creating new columns, converting str to numeric
+
+prostate_data_clean <- prostate_data_clean |>
+  separate("status", into = c("Status", "Cause of Death"), sep ="\\-")
+
+#prostate_data_clean2 <- prostate_data_clean2 |>
+#  mutate(`Status` = if_else(
+   # `Status` == "dead", "0","1"),
+   # TRUE ~ as.character(`Status`)) |>
+  #mutate(`Status` = as.numeric(`Status`))
+
+prostate_data_clean <- prostate_data_clean |>
+  mutate(`Status` = case_when(
+    `Status` == "alive" ~ "1",
+    TRUE ~ as.character(`Status`))) |>
+  mutate(`Status` = as.numeric(`Status`)) |>
+  mutate(`Status` = replace_na(`Status`,0))
+```
+
