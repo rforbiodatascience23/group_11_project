@@ -29,3 +29,11 @@ prostate_data_augment<-prostate_data_clean|>
   ))
 ```
 
+
+```{r}
+#|label: Save data
+
+output_file_path <- "../data/02_dat_aug.tsv"
+write_delim( prostate_data_augment, file = output_file_path )
+```
+
