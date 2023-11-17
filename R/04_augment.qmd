@@ -1,0 +1,31 @@
+```{r}
+#| label: Loading libraries
+
+library("tidyverse")
+library("patchwork") #for plotting plots together (plo1/plot2)
+library("ggridges")
+#library("viridis")
+library("dplyr")
+library("table1") #describing a cohort
+library("stringr") #count the number of occurrences of a given character in a string
+library("ggseqlogo") #to create sequence logos
+library("readr")
+```
+
+```{r}
+
+#Introduce new column "dosage" that contains low and high based on amount of drug used
+prostate_data_augment<-prostate_data_clean|>
+  mutate(`Dosage`=case_when(
+  0<=`Treatment regime` & `Treatment regime`<=0.2 ~ "Low",
+  1<=`Treatment regime` & `Treatment regime`<=5 ~ "High"
+  ))
+
+prostate_data_augment<-prostate_data_clean|>
+  mutate(`Risk`=case_when(
+  0<=`sg` & `sg`<=5 ~ "Low",
+  5<`sg` & `sg`<=10 ~ "High",
+  10<`sg` & `sg`<=15 ~ "Very high",
+  ))
+```
+
