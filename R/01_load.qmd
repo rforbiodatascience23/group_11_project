@@ -19,3 +19,11 @@ prostate_data <- read_excel('../data/_raw/prostate.xlsx')
 prostate_data <- write_delim(prostate_data, file= '../data/_raw/prostate.tsv', delim = "\t", col_names = TRUE)
 ```
 
+
+```{r}
+#|label: Save data
+
+output_file_path <- "../data/01_dat_load.tsv"
+write_delim( prostate_data, file = output_file_path )
+```
+
