@@ -5,11 +5,10 @@ library(vroom)
 library(readxl)
 ```
 
-
 ```{r}
 # Download Byar & Greene prostate cancer data
-url <- "https://hbiostat.org/data/repo/prostate.xls"
-destination <- "../data/_raw/prostate.xls"
+url <- "https://github.com/Alex131313131313/DATA/raw/main/prostate.xlsx"
+destination <- "../data/_raw/prostate.xlsx"
 
 download.file(url, destination, method = "auto")
 ```
@@ -17,11 +16,10 @@ download.file(url, destination, method = "auto")
 ```{r}
 # NOTE: You open prostate.xls and save it again to xlsx
 prostate_data <- read_excel('../data/_raw/prostate.xlsx')
-
-raw_data <- as.data.frame(read_csv(file = "~/projects/group_11_repository/data/_raw/prostate.csv", show_col_types = FALSE))
-
+write_delim(prostate_data, file= '../data/_raw/prostate.tsv', delim = "\t", col_names = TRUE)
+#prostate_data <- read_csv('../data/_raw/prostate.csv',delim ='\t',show_col_types = FALSE)
 ```
 
 ```{r}
-raw_data <- vroom("~/projects/group_11_repository/data/_raw/prostate.csv", delim =';', show_col_types = FALSE)
+
 ```
