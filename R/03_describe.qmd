@@ -15,6 +15,14 @@ count()
 ```
 
 ```{r}
+#| label: Mean of a few different parameters
+prostate_data_augment|>
+  filter(!is.na(age))|>
+  summarise(mean_age = mean(age), mean_haemologbin = mean(`Serum haemoglobin level`), mean_sbp = mean(`Systolic blood pressure`), mean_dbp = mean(`Diastolic blood pressure`))
+```
+
+
+```{r}
 prostate_data_augment |>
   filter(!is.na(`Cause of Death`)) |>
   ggplot(aes(x = `Cause of Death`, fill = as.factor(`Age group`))) +
