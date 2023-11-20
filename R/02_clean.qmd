@@ -34,6 +34,8 @@ prostate_data_clean <- prostate_data_clean |>
 
 ```
 
+
+
 ```{r}
 #| label: Modifying Status column, creating new columns, converting str to numeric
 
@@ -57,6 +59,22 @@ prostate_data_clean <- prostate_data_clean |>
     1))
   
 ```
+
+```{r}
+#| label: Renaming columns appropriately
+prostate_data_clean <- prostate_data_clean |>
+  rename(`Activity Level` = pf,
+         `Patient number` = `patno`,
+         `Systolic blood pressure` = `sbp`,
+         `Diastolic blood pressure` = `dbp`,
+         `Serum haemoglobin level` = `hg`,
+         `Weight index` = `wt`,
+         `History of CVD` = `hx`,
+         `Primary lesion size(cm^2)` = `sz`,
+         `Gleason stage` = `sg`) 
+
+```
+
 
 ```{r}
 #|label: Save data

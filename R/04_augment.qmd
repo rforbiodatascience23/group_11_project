@@ -21,18 +21,28 @@ prostate_data_augment<-prostate_data_clean|>
   1<=`Treatment regime` & `Treatment regime`<=5 ~ "High"
   ))
 
-prostate_data_augment<-prostate_data_clean|>
+prostate_data_augment<-prostate_data_augment|>
   mutate(`Risk`=case_when(
-  0<=`sg` & `sg`<=5 ~ "Low",
-  5<`sg` & `sg`<=10 ~ "High",
-  10<`sg` & `sg`<=15 ~ "Very high",
+  0<=`Gleason stage` &
+    `Gleason stage`<=5 ~ "Low",
+  5<`Gleason stage` &
+    `Gleason stage`<=10 ~ "High",
+  10<`Gleason stage` &
+    `Gleason stage`<=15 ~ "Very high",
+  ))
+
+prostate_data_augment<-prostate_data_augment|>
+  mutate(`Age group`=case_when(
+  `age`<75 ~ 0,
+  75<=`age` & `age`<=80 ~ 1,
+  80<=`age` ~ 2
   ))
 ```
 
 
 ```{r}
 #|label: Save data
-
+()
 output_file_path <- "../data/02_dat_aug.tsv"
 write_delim( prostate_data_augment, file = output_file_path )
 ```
