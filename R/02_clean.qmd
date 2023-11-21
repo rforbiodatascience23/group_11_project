@@ -13,7 +13,14 @@ library("readr")
 ```
 
 ```{r}
+#| label: Loading data
+prostate_data <- read_delim(file = "../data/01_dat_load.tsv", show_col_types = FALSE)
+```
+
+```{r}
 #| label: Renaming rx column, converting to numeric, replacing NAs 
+#| warning: false
+
 prostate_data_clean <- prostate_data |>
   separate("rx", into = c("Treatment regime", "mg","Drug"), sep =" ") |>
   select(-c("mg"))
@@ -38,6 +45,7 @@ prostate_data_clean <- prostate_data_clean |>
 
 ```{r}
 #| label: Modifying Status column, creating new columns, converting str to numeric
+#| warning: false
 
 prostate_data_clean <- prostate_data_clean |>
   separate("status", into = c("Status", "Cause of Death"), sep ="\\-")
@@ -75,6 +83,25 @@ prostate_data_clean <- prostate_data_clean |>
 
 ```
 
+
+```{r}
+#| label: Modifying Cause of Death column to numeric 
+
+prostate_data_clean <- prostate_data_clean |>
+  mutate(`Cause of Death` = case_when(
+    `Cause of Death` == " prostatic ca" ~ "0",
+    `Cause of Death` == " heart or vascular" ~ "1",
+    `Cause of Death` == " cerebrovascular" ~ "2",
+    `Cause of Death` == " other ca" ~ "3",
+    `Cause of Death` == " respiratory disease" ~ "4",
+    `Cause of Death` == " other specific non" ~ "5",
+    `Cause of Death` == " pulmonary embolus" ~ "6",
+    `Cause of Death` == " unspecified non" ~ "7",
+    `Cause of Death` == " unknown cause" ~ "8",
+    TRUE ~ as.character(`Cause of Death`))) |>
+  mutate(`Cause of Death` = as.numeric(`Cause of Death`)) |>
+  mutate(`Cause of Death` = replace_na(`Cause of Death`,9))
+```
 
 ```{r}
 #|label: Save data
