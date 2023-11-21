@@ -23,6 +23,13 @@ and the process of arriving at results is done in a reproducible manner.
 
 # Tidy data
 
+- For instance we separate "rx" into three columns; "Treatment regime", "mg" and "Drug"
+
+```{r}
+#| out.width = '80%',
+#| fig.align = 'center'
+knitr::include_graphics("figs/raw_dataset.png")
+```
 
 ## Results {.centered}
 
