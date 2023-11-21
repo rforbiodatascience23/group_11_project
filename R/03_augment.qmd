@@ -55,7 +55,7 @@ prostate_data_augment <- prostate_data_augment |>
 
 ```{r}
 #|label: Save data
-output_file_path <- "../data/04_dat_aug.tsv"
+output_file_path <- "../data/03_dat_aug.tsv"
 write_delim( prostate_data_augment, file = output_file_path )
 ```
 
