@@ -19,7 +19,8 @@ prostate_data_augment<-prostate_data_clean|>
   mutate(`Dosage`=case_when(
   0<=`Treatment regime` & `Treatment regime`<=0.2 ~ "Low",
   1<=`Treatment regime` & `Treatment regime`<=5 ~ "High"
-  ))
+  )) |>
+    relocate(`Dosage`, .after = `Drug` )
 
 prostate_data_augment<-prostate_data_augment|>
   mutate(`Risk`=case_when(
