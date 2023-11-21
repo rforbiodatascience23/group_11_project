@@ -12,14 +12,24 @@ mutate(`Dosage` = case_when(
   mutate(`Dosage` = as.numeric(`Dosage`)) |>
    mutate(`Dosage` = replace_na(`Dosage`,1))
  
-
-model <- lm(Status ~ `Activity Level`,
-      data = prostate_data_augment)
 ```
 
 ```{r}
 prostate_data_augment |>
   group_by(stage) |>
-  filter(!(is.na(`Gleason stage`))|>
-  summarise(mu = mean(`Gleason stage`)
+  filter(!is.na(`Gleason stage`)) |>
+  summarise(mu = mean(`Gleason stage`))
+```
+
+```{r}
+prostate_data_augment |>
+  group_by(stage) |>
+  filter(!is.na(`Primary lesion size(cm^2)`)) |>
+  summarise(mu = mean(`Primary lesion size(cm^2)`))
+
+```
+
+```{r}
+#linear model ...
+
 ```
