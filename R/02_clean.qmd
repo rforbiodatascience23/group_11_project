@@ -80,3 +80,5 @@ prostate_data_clean <- prostate_data_clean |>
 
 output_file_path <- "../data/02_dat_clean.tsv"
 write_delim( prostate_data_clean, file = output_file_path )
+
+```
