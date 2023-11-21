@@ -5,3 +5,34 @@ editor: visual
 ---
 
 ## PCA analysis
+
+source("../99_proj_func.R")
+
+prostate_data_imputed \<- prostate_data_augment \|\>
+
+select_if(is.numeric) \|\>
+
+mutate_all(mean_impute)
+
+```{r}
+library(broom)
+```
+
+```{r}
+prostate_data_augment <-prostate_data_augment |>
+  filter(!is.na(age))
+```
+
+```{r}
+library(broom)  # devtools::install_github("tidymodels/broom")
+pca_fit <- prostate_data_augment |>
+  select(`Treatment regime`,stage,`Age group`, `Serum haemoglobin level`, `History of CVD`)|>
+  prcomp(scale = TRUE) 
+```
+
+```{r}
+pca_fit |>
+  augment(prostate_data_augment) %>% # add original dataset back in
+  ggplot(aes(.fittedPC2, .fittedPC3)) + 
+  geom_point(size = 1.5)
+```

@@ -36,3 +36,65 @@ prostate_data_augment |>
   scale_fill_manual(values = c("tomato2", "skyblue2", "palegreen3"), name = "Age group", labels = c("< 75 years", "75 to 80 years", "> 80 years")) 
 ```
 
+```{r}
+# History of cvd - tumor size boxplot
+ggplot(prostate_data_augment, aes(x = factor(`History of CVD` ), y = `Primary lesion size(cm^2)`)) +
+  geom_boxplot() +
+  labs(
+    x = "History of Heart Disease",
+    y = "Tumor Size",
+    title = "Boxplot of Tumor Size by History of Heart Disease"
+  ) +
+  scale_x_discrete(labels = c("No", "Yes"))
+
+# Correlation of gleason stage - hemoglobin colored by cancer stage
+ggplot(prostate_data_augment, aes(x = `Gleason stage`, y = `Serum haemoglobin level`, color = stage)) +
+  geom_point() +
+  labs(
+    x = "Gleason Stage",
+    y = "Hemoglobin Level",
+    title = "Correlation of Hemoglobin with Gleason Stage by Cancer Stage"
+  )
+
+#Correlation of tumor size - hemoglobin
+ggplot(prostate_data_augment, aes(x = `Primary lesion size(cm^2)`, y = `Serum haemoglobin level`)) +
+  geom_point() +
+  labs(
+    x = "Hemoglobin Level",
+    y = "Tumor Size",
+    title ="Correlation of hemoglobin with tumor size"
+  )
+
+#Correlation of tumor - activity level 
+ggplot(prostate_data_augment, aes(x = age, y = `Primary lesion size(cm^2)`, fill = `Activity Level`)) +
+  geom_point() +
+  labs(
+    x = "Age",
+    y = "Tumor Size",
+    title = "Correlation of Age with Tumor Size by Activity Level"
+  )
+
+prostate_data_augment |>
+mutate(`Dosage` = case_when(
+    `Dosage` == "Low" ~ "0")) |>
+  mutate(`Dosage` = as.numeric(`Dosage`)) |>
+   mutate(`Dosage` = replace_na(`Dosage`,1))
+ 
+
+```
+
+```{r}
+prostate_data_augment |>
+  group_by(stage) |>
+  filter(!is.na(`Gleason stage`)) |>
+  summarise(mu = mean(`Gleason stage`))
+```
+
+```{r}
+prostate_data_augment |>
+  group_by(stage) |>
+  filter(!is.na(`Primary lesion size(cm^2)`)) |>
+  summarise(mu = mean(`Primary lesion size(cm^2)`))
+
+```
+

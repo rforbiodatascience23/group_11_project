@@ -1,31 +1,7 @@
----
-title: "05_analysis_1"
-format: html
-editor: visual
----
+
+<<<<<<< HEAD
 
 ```{r}
-#| label: model 
-prostate_data_augment |>
-mutate(`Dosage` = case_when(
-    `Dosage` == "Low" ~ "0")) |>
-  mutate(`Dosage` = as.numeric(`Dosage`)) |>
-   mutate(`Dosage` = replace_na(`Dosage`,1))
- 
-```
-
-```{r}
-prostate_data_augment |>
-  group_by(stage) |>
-  filter(!is.na(`Gleason stage`)) |>
-  summarise(mu = mean(`Gleason stage`))
-```
-
-```{r}
-prostate_data_augment |>
-  group_by(stage) |>
-  filter(!is.na(`Primary lesion size(cm^2)`)) |>
-  summarise(mu = mean(`Primary lesion size(cm^2)`))
 
 ```
 
