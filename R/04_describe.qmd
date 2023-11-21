@@ -9,31 +9,28 @@ prostate_data_augment<-read_delim("../data/03_dat_aug.tsv")
 
 #Destribution of Age based on whether the patient has passed away or not
 age_status_summary <- prostate_data_augment %>%
-  group_by(Status) |>
+  group_by(stage) |>
   filter(!is.na(age))|>
   summarise(mean_age = mean(age),
             median_age = median(age),
             min_age = min(age),
             max_age = max(age))
+age_status_summary
+```
 
 
+```{r}
+plot <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(stage))) +
+  geom_density(alpha=0.5) +
+  labs(title = "Distribution of Age based on Cancer Stage",
+       x = "Age",
+       y = "Density",
+       fill = "Status") +
+  scale_fill_manual(values = c("blue", "red"), name = NULL, labels = c("Stage 3", "Stage 4")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+plot
 
-
-
-
-
-
-prostate_data_augment |>
-  filter(!is.na(age)) |>
-  summarise(min_age = min(age),
-            max_age = max(age))
-
-age_range <- prostate_data_augment %>%
-  summarise(across(age, list(min = min, max = max))) %>%
-  unlist()
-
-prostate_data_augment |>
-count()
 
 ```
 
@@ -46,7 +43,8 @@ prostate_data_augment|>
 
 
 ```{r}
-prostate_data_augment |>
+#Cause of death across Age groups
+plot2<-prostate_data_augment |>
   filter(!is.na(`Cause of Death`)) |>
   ggplot(aes(x = `Cause of Death`, fill = as.factor(`Age group`))) +
   geom_bar(position = "dodge") +
@@ -57,36 +55,51 @@ prostate_data_augment |>
       axis.text.x = element_text(angle = 45,hjust=1,size=10), 
       axis.text.y = element_text(size =10)) +
   scale_fill_manual(values = c("tomato2", "skyblue2", "palegreen3"), name = "Age group", labels = c("< 75 years", "75 to 80 years", "> 80 years")) 
+plot2
 ```
 
 ```{r}
 # History of cvd - tumor size boxplot
-ggplot(prostate_data_augment, aes(x = factor(`History of CVD` ), y = `Primary lesion size(cm^2)`)) +
+cvd_lesion_plot<-prostate_data_augment|>
+  filter(!is.na(`Primary lesion size(cm^2)`)) |>
+  ggplot(aes(x = factor(`stage` ), y = `Primary lesion size(cm^2)`)) +
   geom_boxplot() +
   labs(
-    x = "History of Heart Disease",
-    y = "Tumor Size",
-    title = "Boxplot of Tumor Size by History of Heart Disease"
+    x = "Cancer Stage",
+    y = "Lesion size",
+    title = "Boxplot of Primary Lesion Size by Cancer Stage"
   ) +
-  scale_x_discrete(labels = c("No", "Yes"))
+  scale_x_discrete(labels = c("Stage 3", "Stage 4"))
+cvd_lesion_plot
+```
+
+```{r}
 
 # Correlation of gleason stage - hemoglobin colored by cancer stage
-ggplot(prostate_data_augment, aes(x = `Gleason stage`, y = `Serum haemoglobin level`, color = stage)) +
+hemo_and_risk_plot<-prostate_data_augment|>
+  filter(!is.na(`Risk`))|>
+  ggplot(aes(x = `Risk`, y = `Serum haemoglobin level`, color = as.factor(stage))) +
   geom_point() +
   labs(
-    x = "Gleason Stage",
+    x = "Risk",
     y = "Hemoglobin Level",
-    title = "Correlation of Hemoglobin with Gleason Stage by Cancer Stage"
-  )
+    title = "Correlation of Hemoglobin with Risk by Cancer Stage")+
+  scale_color_discrete(name = "Cancer Stage",labels = c("Stage 3", "Stage 4"))
+hemo_and_risk_plot
+```
 
+```{r}
 #Correlation of tumor size - hemoglobin
-ggplot(prostate_data_augment, aes(x = `Primary lesion size(cm^2)`, y = `Serum haemoglobin level`)) +
-  geom_point() +
-  labs(
-    x = "Hemoglobin Level",
-    y = "Tumor Size",
-    title ="Correlation of hemoglobin with tumor size"
-  )
+tumor_age_adjusted_haem<-prostate_data_augment |>
+  filter(!is.na(`Primary lesion size(cm^2)`)) |>
+  ggplot(aes(x = `Primary lesion size(cm^2)`, y = `Age Adjusted Haemoglobin`, fill = Dosage)) +
+  geom_density_2d_filled() +
+  labs(fill = "Dosage")
+
+tumor_age_adjusted_haem
+```
+
+```{r}
 
 #Correlation of tumor - activity level 
 ggplot(prostate_data_augment, aes(x = age, y = `Primary lesion size(cm^2)`, fill = `Activity Level`)) +
