@@ -1,5 +1,6 @@
 ```{r}
 #| label: Loading libraries
+#| message: false
 
 library("tidyverse")
 library("patchwork") #for plotting plots together (plo1/plot2)
@@ -84,7 +85,7 @@ prostate_data_clean <- prostate_data_clean |>
 
 
 ```{r}
-#| label: Converting Cause of Death column to numeric 
+#| label: Converting Cause of Death column to numeric values 
 
 prostate_data_clean <- prostate_data_clean |>
   mutate(`Cause of Death` = case_when(
