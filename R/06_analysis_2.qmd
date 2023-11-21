@@ -4,16 +4,6 @@ format: html
 editor: visual
 ---
 
-## PCA analysis
-
-source("../99_proj_func.R")
-
-prostate_data_imputed \<- prostate_data_augment \|\>
-
-select_if(is.numeric) \|\>
-
-mutate_all(mean_impute)
-
 ```{r}
 library(broom)
 ```
@@ -27,19 +17,19 @@ prostate_data_augment <-prostate_data_augment |>
 ```{r}
 library(broom)  # devtools::install_github("tidymodels/broom")
 pca_fit <- prostate_data_augment |>
-  select(`Treatment regime`,`stage`,`age`, `Serum haemoglobin level`, `History of CVD`, `Primary lesion size(cm^2)`)|>
+  select(`Treatment regime`,`stage`,`age`, `Serum haemoglobin level`, `History of CVD`, `Primary lesion size(cm^2)`, `Systolic blood pressure`, `Diastolic blood pressure`)|>
   prcomp(scale = TRUE) 
 ```
 
 ```{r}
 pca_fit |>
   augment(prostate_data_augment) %>% # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC2, color = `Primary lesion size(cm^2)`)) + 
+  ggplot(aes(.fittedPC1, .fittedPC7, color = `Primary lesion size(cm^2)`)) + 
   geom_point(size = 1.5)
 ```
 
 ```{r}
-# extracting the rotatin matrix
+# extracting the rotation matrix
 pca_fit |>
   tidy(matrix = "rotation")
 
@@ -54,7 +44,7 @@ arrow_style <- arrow(
 pca_fit %>%
   tidy(matrix = "rotation") %>%
   pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
-  ggplot(aes(PC4, PC5)) +
+  ggplot(aes(PC1, PC2)) +
   geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
   geom_text(
     aes(label = column),
