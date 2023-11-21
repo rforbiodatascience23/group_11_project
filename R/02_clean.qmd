@@ -72,7 +72,6 @@ prostate_data_clean <- prostate_data_clean |>
          `History of CVD` = `hx`,
          `Primary lesion size(cm^2)` = `sz`,
          `Gleason stage` = `sg`) 
-
 ```
 
 
@@ -81,6 +80,5 @@ prostate_data_clean <- prostate_data_clean |>
 
 output_file_path <- "../data/02_dat_clean.tsv"
 write_delim( prostate_data_clean, file = output_file_path )
+
 ```
-
-
