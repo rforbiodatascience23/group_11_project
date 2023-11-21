@@ -1,0 +1,64 @@
+```{r}
+#| label: Loading libraries
+
+library("tidyverse")
+library("patchwork") #for plotting plots together (plo1/plot2)
+library("ggridges")
+#library("viridis")
+library("dplyr")
+library("table1") #describing a cohort
+library("stringr") #count the number of occurrences of a given character in a string
+library("ggseqlogo") #to create sequence logos
+library("readr")
+```
+
+```{r}
+
+#Introduce new column "dosage" that contains low and high based on amount of drug used
+prostate_data_augment<-prostate_data_clean|>
+  mutate(`Dosage`=case_when(
+  0<=`Treatment regime` & `Treatment regime`<=0.2 ~ "Low",
+  1<=`Treatment regime` & `Treatment regime`<=5 ~ "High"
+  )) |>
+    relocate(`Dosage`, .after = `Drug` )
+
+prostate_data_augment<-prostate_data_augment|>
+  mutate(`Risk`=case_when(
+  0<=`Gleason stage` &
+    `Gleason stage`<=5 ~ "Low",
+  5<`Gleason stage` &
+    `Gleason stage`<=10 ~ "High",
+  10<`Gleason stage` &
+    `Gleason stage`<=15 ~ "Very high",
+  ))
+
+prostate_data_augment<-prostate_data_augment|>
+  mutate(`Age group`=case_when(
+  `age`<75 ~ 0,
+  75<=`age` & `age`<=80 ~ 1,
+  80<=`age` ~ 2
+  ))
+```
+
+```{r}
+mean_haemoglobin_by_age <- prostate_data_augment |>
+  group_by(`Age group`) |>
+  filter(!is.na(`Age group`))|>
+  summarise(mean_haemoglobin = mean(`Serum haemoglobin level`, na.rm = TRUE))
+
+# Merge the mean_hemoglobin back to the original data frame
+prostate_data_augment <- prostate_data_augment %>%
+  left_join(mean_haemoglobin_by_age, by = "Age group")
+
+# Create an age-adjusted hemoglobin index
+prostate_data_augment <- prostate_data_augment |>
+  mutate(`Age Adjusted Haemoglobin` = `Serum haemoglobin level`/mean_haemoglobin)
+```
+
+
+```{r}
+#|label: Save data
+output_file_path <- "../data/02_dat_aug.tsv"
+write_delim( prostate_data_augment, file = output_file_path )
+```
+

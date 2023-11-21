@@ -1,0 +1,38 @@
+```{r}
+library(ggplot2)
+library("tidyverse")
+```
+
+```{r}
+prostate_data_augment |>
+  filter(!is.na(age)) |>
+  summarise(min_age = min(age),
+            max_age = max(age))
+
+prostate_data_augment |>
+count()
+
+```
+
+```{r}
+#| label: Mean of a few different parameters
+prostate_data_augment|>
+  filter(!is.na(age))|>
+  summarise(mean_age = mean(age), mean_haemologbin = mean(`Serum haemoglobin level`), mean_sbp = mean(`Systolic blood pressure`), mean_dbp = mean(`Diastolic blood pressure`))
+```
+
+
+```{r}
+prostate_data_augment |>
+  filter(!is.na(`Cause of Death`)) |>
+  ggplot(aes(x = `Cause of Death`, fill = as.factor(`Age group`))) +
+  geom_bar(position = "dodge") +
+  labs(title = "Cause of Death across Age Groups",
+       x = "Cause of Death",
+       y = "Number of Cases") +
+  theme(legend.position = "bottom", 
+      axis.text.x = element_text(angle = 45,hjust=1,size=10), 
+      axis.text.y = element_text(size =10)) +
+  scale_fill_manual(values = c("tomato2", "skyblue2", "palegreen3"), name = "Age group", labels = c("< 75 years", "75 to 80 years", "> 80 years")) 
+```
+
