@@ -3,12 +3,12 @@
 
 library("tidyverse")
 library("patchwork") #for plotting plots together (plo1/plot2)
-library("ggridges")
+
 #library("viridis")
 library("dplyr")
-library("table1") #describing a cohort
+
 library("stringr") #count the number of occurrences of a given character in a string
-library("ggseqlogo") #to create sequence logos
+
 library("readr")
 ```
 
