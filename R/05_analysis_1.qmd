@@ -1,11 +1,40 @@
-
-<<<<<<< HEAD
-
+---
+title: "05_analysis_1"
+format: html
+editor: visual
+---
 ```{r}
-
+library(purrr)
+library(dplyr)
+library(tidyr)
+library(broom)
 ```
 
+
+
 ```{r}
-#linear model ...
+# Fit linear regression to model Status based on Dosage, bm , Weight index for each stage
+
+prostate_data_augment_test <- prostate_data_augment %>% 
+  group_by(stage) %>% 
+  nest() %>% 
+  ungroup()
+
+prostate_data_augment_test <- prostate_data_augment_test %>%
+  group_by(stage) %>% 
+  mutate(
+    model_object = map(
+      data,
+      ~ lm(Status ~ Dosage + bm + `Weight index`, data = .x )))
+  
+
+# Extract coefficients from the lm objects within each nested dataframe
+prostate_estimates <- prostate_data_augment_test %>%
+  mutate(
+    model_summary = map(model_object, tidy)
+  ) %>%
+  unnest(model_summary)
+
+# Plot the lines
 
 ```
