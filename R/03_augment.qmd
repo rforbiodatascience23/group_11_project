@@ -28,6 +28,7 @@ prostate_data_augment<-prostate_data_augment|>
     `Gleason stage`<=15 ~ "Very high",
   ))
 
+# Convert age to intervals
 prostate_data_augment<-prostate_data_augment|>
   mutate(`Age group`=case_when(
   `age`<75 ~ 0,
