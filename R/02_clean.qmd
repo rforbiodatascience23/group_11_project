@@ -3,12 +3,12 @@
 
 library("tidyverse")
 library("patchwork") #for plotting plots together (plo1/plot2)
-library("ggridges")
+
 #library("viridis")
 library("dplyr")
-library("table1") #describing a cohort
+
 library("stringr") #count the number of occurrences of a given character in a string
-library("ggseqlogo") #to create sequence logos
+
 library("readr")
 ```
 
@@ -33,6 +33,8 @@ prostate_data_clean <- prostate_data_clean |>
   mutate(`Drug` = replace_na(`Drug`,0))
 
 ```
+
+
 
 ```{r}
 #| label: Modifying Status column, creating new columns, converting str to numeric
@@ -59,10 +61,23 @@ prostate_data_clean <- prostate_data_clean |>
 ```
 
 ```{r}
+#| label: Renaming columns appropriately
+prostate_data_clean <- prostate_data_clean |>
+  rename(`Activity Level` = pf,
+         `Patient number` = `patno`,
+         `Systolic blood pressure` = `sbp`,
+         `Diastolic blood pressure` = `dbp`,
+         `Serum haemoglobin level` = `hg`,
+         `Weight index` = `wt`,
+         `History of CVD` = `hx`,
+         `Primary lesion size(cm^2)` = `sz`,
+         `Gleason stage` = `sg`) 
+
+```
+
+
+```{r}
 #|label: Save data
 
 output_file_path <- "../data/02_dat_clean.tsv"
 write_delim( prostate_data_clean, file = output_file_path )
-```
-
-
