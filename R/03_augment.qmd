@@ -9,6 +9,11 @@ library("readr")
 ```
 
 ```{r}
+#| label: Loading data
+prostate_data <- read_delim(file = "../data/02_dat_clean.tsv", show_col_types = FALSE)
+```
+
+```{r}
 
 #Introduce new column "dosage" that contains low and high based on amount of drug used
 prostate_data_augment<-prostate_data_clean|>
