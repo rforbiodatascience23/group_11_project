@@ -72,16 +72,6 @@ prostate_data_clean <- prostate_data_clean |>
          `History of CVD` = `hx`,
          `Primary lesion size(cm^2)` = `sz`,
          `Gleason stage` = `sg`) 
-<<<<<<< HEAD
-=======
-
-```
-
-
-```{r}
-#|label: Save data
->>>>>>> e23f1f32b2e7835e555a41ae74e323b277db1308
-
 ```
 
 
