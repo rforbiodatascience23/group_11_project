@@ -16,30 +16,17 @@ age_status_summary <- prostate_data_augment %>%
             min_age = min(age),
             max_age = max(age))
 
-plot <-ggplot(prostate_data_augment,mapping= aes(x = age,fill = Status)) +
-  geom_density() +
+plot <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(Status))) +
+  geom_density(alpha=0.5) +
   labs(title = "Mean Age by Status",
-       x = "Status",
-       y = "Mean Age") +
+       x = "Age",
+       y = "Density",
+       fill = "Status") +
+  scale_fill_manual(values = c("blue", "red"), name = NULL, labels = c("Dead", "Alive")) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 plot
 
-
-
-
-
-prostate_data_augment |>
-  filter(!is.na(age)) |>
-  summarise(min_age = min(age),
-            max_age = max(age))
-
-age_range <- prostate_data_augment %>%
-  summarise(across(age, list(min = min, max = max))) %>%
-  unlist()
-
-prostate_data_augment |>
-count()
 
 ```
 
