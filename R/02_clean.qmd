@@ -85,7 +85,7 @@ prostate_data_clean <- prostate_data_clean |>
 
 
 ```{r}
-#| label: Converting Cause of Death column to numeric values 
+#| label: Converting 'Cause of Death' column to numeric values 
 
 prostate_data_clean <- prostate_data_clean |>
   mutate(`Cause of Death` = case_when(
