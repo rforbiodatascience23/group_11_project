@@ -4,10 +4,30 @@ library("tidyverse")
 ```
 
 ```{r}
+prostate_data_augment<-read_csv()
+#Destribution of Age based on whether the patient has passed away or not
+age_status_summary <- prostate_data_agument %>%
+  group_by(status) %>%
+  summarise(mean_age = mean(age),
+            median_age = median(age),
+            min_age = min(age),
+            max_age = max(age))
+
+
+
+
+
+
+
+
 prostate_data_augment |>
   filter(!is.na(age)) |>
   summarise(min_age = min(age),
             max_age = max(age))
+
+age_range <- prostate_data_augment %>%
+  summarise(across(age, list(min = min, max = max))) %>%
+  unlist()
 
 prostate_data_augment |>
 count()
