@@ -20,20 +20,21 @@ library(broom)
 
 ```{r}
 prostate_data_augment <-prostate_data_augment |>
-  filter(!is.na(age))
+  filter(!is.na(age)) |>
+  filter(!is.na(`Primary lesion size(cm^2)`))
 ```
 
 ```{r}
 library(broom)  # devtools::install_github("tidymodels/broom")
 pca_fit <- prostate_data_augment |>
-  select(`Treatment regime`,`stage`,`age`, `Serum haemoglobin level`, `History of CVD`)|>
+  select(`Treatment regime`,`stage`,`age`, `Serum haemoglobin level`, `History of CVD`, `Primary lesion size(cm^2)`)|>
   prcomp(scale = TRUE) 
 ```
 
 ```{r}
 pca_fit |>
   augment(prostate_data_augment) %>% # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC4)) + 
+  ggplot(aes(.fittedPC1, .fittedPC2, color = `Primary lesion size(cm^2)`)) + 
   geom_point(size = 1.5)
 ```
 
@@ -62,4 +63,19 @@ pca_fit %>%
   ) +
   xlim(-1.25, .5) + ylim(-.5, 1) +
   coord_fixed() 
+```
+
+```{r}
+pca_fit %>%
+  tidy(matrix = "eigenvalues")
+
+pca_fit %>%
+  tidy(matrix = "eigenvalues") %>%
+  ggplot(aes(PC, percent)) +
+  geom_col(fill = "#56B4E9", alpha = 0.8) +
+  scale_x_continuous(breaks = 1:9) +
+  scale_y_continuous(
+    labels = scales::percent_format(),
+    expand = expansion(mult = c(0, 0.01))
+  ) 
 ```
