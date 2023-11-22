@@ -54,6 +54,7 @@ age_status_summary
 ```
 
 ```{r}
+#Mean statistics
 mean_statistics<- prostate_data_augment %>%
   group_by(stage) %>%
   summarise(
@@ -71,6 +72,7 @@ mean_statistics
 
 
 ```{r}
+#Age distribution plot
 age_distribution <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(stage))) +
   geom_density(alpha=0.5) +
   labs(title = "Distribution of Age based on Cancer Stage",
