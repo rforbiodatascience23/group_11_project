@@ -7,18 +7,41 @@ library(dplyr)
 ```{r}
 # First load the cleaned data 
 prostate_data_augment<-read_delim("../data/03_dat_aug.tsv")
-
-#We check if the data is tidy using the glimple() method
-data_types <- glimpse(prostate_data_augment)
-data_types
 ```
+
+##Data exploration
+
 ``` {r}
-
+#Number of rows 
+rows_count <- nrow(prostate_data_augment)
+rows_count 
 ```
-
 
 ```{r}
+# Number of features
+features_count <- ncol(prostate_data_augment)
+features_count
+```
 
+```{r}
+#Number of missing values
+na_count <- colSums(is.na(prostate_data_augment))
+na_count
+```
+
+```{r}
+#Percentage of missing values
+na_percentage <- round((na_count / rows_count) * 100, 1)
+na_percentage
+```
+
+```{r}
+#Summary statistics
+summary_statistics <- summary(prostate_data_augment)
+summary_statistics
+```
+
+```{r}
 #Destribution of Age based on stage
 age_status_summary <- prostate_data_augment %>%
   group_by(stage) |>
@@ -29,6 +52,23 @@ age_status_summary <- prostate_data_augment %>%
             max_age = max(age))
 age_status_summary
 ```
+
+```{r}
+mean_statistics<- prostate_data_augment %>%
+  group_by(stage) %>%
+  summarise(
+    Age_mean=mean(age,na.rm=TRUE),
+    Gleason_stage_mean = mean(`Gleason stage`, na.rm = TRUE),
+    Primary_lesion_mean = mean(`Primary lesion size(cm^2)`, na.rm = TRUE),
+    Haemologbin_level_mean = mean(`Serum haemoglobin level`,na.rm=TRUE),
+    Systolic_blood_pressure_mean = mean(`Systolic blood pressure`,na.rm=TRUE), 
+    Diastolic_blood_pressure_mean= mean(`Diastolic blood pressure`,na.rm=TRUE)
+  )
+mean_statistics
+
+
+```
+
 
 ```{r}
 age_distribution <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(stage))) +
@@ -91,26 +131,28 @@ lesion_on_stage_plot
 The size of the tumor was on average bigger on stage 4
 
 ```{r}
-#Tumor size and hemoglobin correlation on each stage colored by Risk
+#Lesion size and haemoglobin correlation on each stage colored by Risk
 
-hem_and_tumor_plot <-prostate_data_augment|>
+haem_and_tumor_plot <-prostate_data_augment|>
   filter(!is.na(`Primary lesion size(cm^2)`))|>
   filter(!is.na(Risk))|>
   ggplot(aes(x = `Serum haemoglobin level`, 
              y = `Primary lesion size(cm^2)`, 
              color = Risk)) +
   geom_point() +
-  facet_wrap(~stage) +
-  labs(x = "Haemoglobin", y = "Tumour Size", color = "Risk") +
+  facet_wrap(~stage,labeller = labeller(stage = c(
+    "3" = "Stage 3",
+    "4" = "Stage 4"))) +
+  labs(x = "Haemoglobin Level", y = "Lesion Size", color = "Risk") +
   theme_minimal()
-hem_and_tumor_plot 
+haem_and_tumor_plot 
 ```
-Tumor size and hemoglobin don't have much correlation but on each stage of the cancer. However, high hemoglobin levels show higher risk for patients and thus higher number of gleason stage.
+Tumor size and haemoglobin don't have much correlation but on each stage of the cancer. However, high haemoglobin levels show higher risk for patients and thus higher number of gleason stage.
 
 
 ```{r}
 
-# Correlation of gleason stage -Tumor size colored by cancer stage
+# Correlation of Gleason stage -Lesion size colored by cancer stage
 gleason_and_tumor_by_stage<-prostate_data_augment|>
   filter(!is.na(`Primary lesion size(cm^2)`))|>
   filter(!is.na(`Gleason stage`))|>
@@ -145,35 +187,4 @@ ap_bm_relationship
 ```
 Very high risk patients bone metastasis show higher higher prostatic acid levels
 
-```{r}
-prostate_data_augment |>
-mutate(`Dosage` = case_when(
-    `Dosage` == "Low" ~ "0")) |>
-  mutate(`Dosage` = as.numeric(`Dosage`)) |>
-   mutate(`Dosage` = replace_na(`Dosage`,1))
- 
 
-```
-
-```{r}
-prostate_data_augment |>
-  group_by(stage) |>
-  filter(!is.na(`Gleason stage`)) |>
-  summarise(mu = mean(`Gleason stage`))
-```
-
-```{r}
-prostate_data_augment |>
-  group_by(stage) |>
-  filter(!is.na(`Primary lesion size(cm^2)`)) |>
-  summarise(mu = mean(`Primary lesion size(cm^2)`))
-
-```
-
-```{r}
-#| label: Mean of a few different parameters
-prostate_data_augment|>
-  filter(!is.na(age))|>
-  summarise(mean_age = mean(age), mean_haemologbin = mean(`Serum haemoglobin level`), mean_sbp = mean(`Systolic blood pressure`), mean_dbp = mean(`Diastolic blood pressure`))
-
-```
