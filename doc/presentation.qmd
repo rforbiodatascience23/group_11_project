@@ -42,9 +42,9 @@ knitr::include_graphics("figs/raw_dataset.png")
 
 ## PCA ORLA
 
-## Logistic Regression Modeling
+## Logistic Regression Modelling
 
-<font size="5"> The objective is to predict *dosage* based on the *bm*, *weight* i*ndex, primary lesion size* and a*ge adjusted haemoglobin* for patients with 3 and 4 prostate cancer stage respectivelly. The coefficients of the above predictors are showed below as well as their significance as indicated by their p.values. </font>
+<font size="5"> The objective is to predict *dosage* based on the bone metastasis(*bm)*, *weight* i*ndex, primary lesion size* and a*ge adjusted haemoglobin* for patients with 3 and 4 prostate cancer stage respectivelly. The coefficients of the above predictors are showed below as well as their significance as indicated by their p.values. </font>
 
 ::: columns
 ::: {.column width="50%"}
@@ -66,3 +66,9 @@ knitr::include_graphics("../results/glm_02.png")
 :::
 
 ## Discussion {.centered}
+
+## PCA discussion
+
+## Predictors of Dosage for each Cancer Stage ?
+- In our analysis of the Logistic Regression model, we encountered several predictors that did not exhibit significant influence on the dosage prediction per cancer stage.
+- Although valuable insights could be gained from a more explorative analysis, we prioritized to mainly focus on the scopes of the course.
