@@ -59,7 +59,7 @@ plt_glm <- ggplot(prostate_estimates, aes(x = term, y = estimate, group = stage,
 plt_glm
 
 #Save
-ggsave('../results/glm_01.jpeg', plt_glm)
+ggsave('../results/glm_01.png', plt_glm)
 ```
 
 ```{r}
@@ -76,7 +76,7 @@ plt_glm <- ggplot(prostate_estimates, aes(x = term, y = estimate, fill = stage, 
 plt_glm
 
 #Save
-ggsave('../results/glm_02.jpeg', plt_glm)
+ggsave('../results/glm_02.png', plt_glm)
 ```
 
 

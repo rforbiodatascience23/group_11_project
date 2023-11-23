@@ -3,13 +3,17 @@ title: "Group 11: Analysis of Prostate Cancer Data"
 format: revealjs
 editor: visual
 ---
+```{r}
+library(knitr)
+```
+
 Note ALWAYS WORK ON YOUR CHUNK TO AVOID CONFLICTS
 
 ## Introduction {.centered}
 
 Our analysis exploits data from a randomised clinical trial by Byar & Greene that compares treatment of patients with prostate cancer in stages 3 and 4. Treatment consisted of different doses of diethylstilbestrol (DES). Our aim is to investigate correlations, trends, or predictive models related to prostate cancer and patient outcomes. Data are publicly available in : https://hbiostat.org/data/repo/prostate.xls
 
-## Materials and Methods {.centered}
+## Materials and Methods {.centered} (ALEX)
 
 The initial dataset contains information related to 502 observations of patients with prostate cancer across 18 variables. These variables encompass diverse information including patient demographics, medical history, treatment received, and health status.
 
@@ -37,18 +41,10 @@ knitr::include_graphics("figs/raw_dataset.png")
 # PCA ORLA
 
 # Logistic Regression Analysis ANNA
-
--We model the relationship between the dosage and the bm, weight index, primary lesion size and age adjusted haemoglobin for patients with 3 and 4 prostate cancer stage.
-
 ```{r}
 #| out.width = '50%',
-#| fig.align = 'left'
-knitr::include_graphics("../results/glm_01.jpeg")
-
-#| out.width = '50%',
-#| fig.align = 'right'
-knitr::include_graphics("../results/glm_02.jpeg")
-
+#| fig.align = 'center'
+knitr::include_graphics("/results/glm_01.png")
 ```
 
 ## Discussion {.centered}
