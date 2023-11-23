@@ -3,7 +3,6 @@ title: "Group 11: Analysis of Prostate Cancer Data"
 format: revealjs
 editor: visual
 ---
-
 Note ALWAYS WORK ON YOUR CHUNK TO AVOID CONFLICTS
 
 ## Introduction {.centered}
@@ -22,7 +21,7 @@ The raw data were: + loaded, + cleaned\
 -   For instance we separate "rx" into three columns; "Treatment regime", "mg" and "Drug"
 
 ```{r}
-#| out.width = '80%',
+#| out.width = '50%',
 #| fig.align = 'center'
 knitr::include_graphics("figs/raw_dataset.png")
 ```
@@ -38,5 +37,18 @@ knitr::include_graphics("figs/raw_dataset.png")
 # PCA ORLA
 
 # Logistic Regression Analysis ANNA
+
+-We model the relationship between the dosage and the bm, weight index, primary lesion size and age adjusted haemoglobin for patients with 3 and 4 prostate cancer stage.
+
+```{r}
+#| out.width = '50%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/glm_01.jpeg")
+
+#| out.width = '50%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/glm_02.jpeg")
+
+```
 
 ## Discussion {.centered}
