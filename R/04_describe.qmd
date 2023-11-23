@@ -2,6 +2,7 @@
 library(ggplot2)
 library("tidyverse")
 library(dplyr)
+library(broom)
 ```
 
 ```{r}
@@ -32,13 +33,15 @@ na_count
 ```{r}
 #Percentage of missing values
 na_percentage <- round((na_count / rows_count) * 100, 1)
-na_percentage
+na_percentage_table <- data.frame(Column_Names = names(na_percentage), NA_Percentage = na_percentage)
+na_percentage_table
 ```
 
 ```{r}
 #Summary statistics
-summary_statistics <- summary(prostate_data_augment)
-summary_statistics
+data_summary <- data.frame(unclass(summary(prostate_data_augment)),
+                           check.names = FALSE)
+data_summary
 ```
 
 ```{r}
@@ -87,7 +90,7 @@ plot
 
 ```{r}
 #Cause of death across Age groups
-plot2<-prostate_data_augment |>
+deaths_across_groups<-prostate_data_augment |>
   filter(!is.na(`Cause of Death`)) |>
   ggplot(aes(x = `Cause of Death`, fill = as.factor(`Age group`))) +
   geom_bar(position = "dodge") +
@@ -98,7 +101,7 @@ plot2<-prostate_data_augment |>
       axis.text.x = element_text(angle = 45,hjust=1,size=10), 
       axis.text.y = element_text(size =10)) +
   scale_fill_manual(values = c("tomato2", "skyblue2", "palegreen3"), name = "Age group", labels = c("< 75 years", "75 to 80 years", "> 80 years")) 
-plot2
+deaths_across_groups
 ```
 ```{r}
 #Association of weight index and age across all types of cancer colored by Risk
@@ -112,7 +115,7 @@ weight_age_across_cancers<-prostate_data_augment|>
   labs()
 weight_age_across_cancers
 ```
-For all non-prostatic cancer causes, low weight index showed high risk for patients across all ages especially those above 70.
+
 
 
 ```{r}
@@ -129,8 +132,6 @@ lesion_on_stage_plot<-prostate_data_augment|>
   scale_x_discrete(labels = c("Stage 3", "Stage 4"))
 lesion_on_stage_plot
 ```
-
-The size of the tumor was on average bigger on stage 4
 
 ```{r}
 #Lesion size and haemoglobin correlation on each stage colored by Risk
@@ -149,8 +150,6 @@ haem_and_tumor_plot <-prostate_data_augment|>
   theme_minimal()
 haem_and_tumor_plot 
 ```
-Tumor size and haemoglobin don't have much correlation but on each stage of the cancer. However, high haemoglobin levels show higher risk for patients and thus higher number of gleason stage.
-
 
 ```{r}
 
@@ -170,7 +169,7 @@ gleason_and_tumor_by_stage<-prostate_data_augment|>
   scale_color_discrete(name = "Cancer Stage",labels = c("Stage 3", "Stage 4"))
 gleason_and_tumor_by_stage
 ```
-In each stage, there was a possitive correlation between the size of the lesion and the Gleason Stage. The higher the stage, the bigger the size. 
+
 
 ```{r}
 # Relationship Between Prostate Acid Levels and Bone Metastases
@@ -187,6 +186,7 @@ ap_bm_relationship <-prostate_data_augment|>
 
 ap_bm_relationship
 ```
-Very high risk patients bone metastasis show higher higher prostatic acid levels
+
+
 
 
