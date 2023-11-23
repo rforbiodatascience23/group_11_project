@@ -1,8 +1,10 @@
 ---
 title: "Group 11: Analysis of Prostate Cancer Data"
-format: revealjs
-editor: visual
+format:
+  revealjs:
+    embed-resources: true
 ---
+
 ```{r}
 library(knitr)
 ```
@@ -20,7 +22,7 @@ The initial dataset contains information related to 502 observations of patients
 The raw data were: + loaded, + cleaned\
 + augmented + described + modelled. and the process of arriving at results is done in a reproducible manner.
 
-# Tidy data
+## Tidy data
 
 -   For instance we separate "rx" into three columns; "Treatment regime", "mg" and "Drug"
 
@@ -32,19 +34,35 @@ knitr::include_graphics("figs/raw_dataset.png")
 
 ## Results {.centered}
 
-# KLEDI
+## KLEDI
 
-# KLEDI
+## KLEDI
 
-# KLEDI
+## KLEDI
 
-# PCA ORLA
+## PCA ORLA
 
-# Logistic Regression Analysis ANNA
+## Logistic Regression Modeling
+
+<font size="5"> The objective is to predict *dosage* based on the *bm*, *weight* i*ndex, primary lesion size* and a*ge adjusted haemoglobin* for patients with 3 and 4 prostate cancer stage respectivelly. The coefficients of the above predictors are showed below as well as their significance as indicated by their p.values. </font>
+
+::: columns
+::: {.column width="50%"}
 ```{r}
-#| out.width = '50%',
-#| fig.align = 'center'
-knitr::include_graphics("/results/glm_01.png")
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/glm_01.png")
+
 ```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/glm_02.png")
+```
+:::
+:::
 
 ## Discussion {.centered}
