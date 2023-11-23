@@ -3,6 +3,7 @@ title: "05_analysis_1"
 format: html
 editor: visual
 ---
+
 ```{r}
 library(purrr)
 library(dplyr)
@@ -10,31 +11,44 @@ library(tidyr)
 library(broom)
 ```
 
-
-
 ```{r}
-# Fit linear regression to model Status based on Dosage, bm , Weight index for each stage
-
+# Fit logistic linear regression to model Dosage based on other variables for each stage
 prostate_data_augment_test <- prostate_data_augment %>% 
+  mutate(stage = factor(stage)) %>% 
+  mutate(Dosage = factor(Dosage)) %>% 
+  filter(!is.na(`bm`),
+         !is.na(`Weight index`),
+         !is.na(`Status`),
+         !is.na(`Primary lesion size(cm^2)`),
+         !is.na(`Age Adjusted Haemoglobin`) ,
+         !is.na(`Dosage`))%>% 
   group_by(stage) %>% 
   nest() %>% 
   ungroup()
 
 prostate_data_augment_test <- prostate_data_augment_test %>%
-  group_by(stage) %>% 
-  mutate(
-    model_object = map(
-      data,
-      ~ lm(Status ~ Dosage + bm + `Weight index`, data = .x )))
-  
+  mutate(model_object = map(.x = data,
+      .f = ~ glm(`Dosage` ~ `bm` + `Weight index` + `Primary lesion size(cm^2)` + `Age Adjusted Haemoglobin`,
+            family = binomial(link = "logit"),
+            data = .x )))
 
-# Extract coefficients from the lm objects within each nested dataframe
+  
+# Extract coefficients from the glm objects within each nested dataframe
 prostate_estimates <- prostate_data_augment_test %>%
   mutate(
     model_summary = map(model_object, tidy)
   ) %>%
   unnest(model_summary)
 
-# Plot the lines
+# Create a new variable to flag p-values less than 0.05
+prostate_estimates <- prostate_estimates %>%
+  mutate(significant = ifelse(p.value < 0.05, "Yes", "No"))
 
+# Plotting coefficients
+ggplot(prostate_estimates, aes(x = term, y = estimate, group = stage,  color = stage, shape = significant )) +
+  geom_point() +
+  theme_minimal() +
+  labs(x = "Coefficients", y = "Estimate") +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  ggtitle("Logistic Regression Coefficients to predict Dosage by Stage")
 ```
