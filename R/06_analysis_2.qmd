@@ -55,6 +55,8 @@ pca_fit|>
   augment(prostate_data_augment)|> # add original dataset back in
   ggplot(aes(.fittedPC1, .fittedPC2, color = `stage`)) + 
   geom_point(size = 1.5)
+
+ggsave('../results/pca_01.png', pca_fit)
 ```
 
 ```{r}
@@ -62,6 +64,8 @@ pca_fit |>
   augment(prostate_data_augment) %>% # add original dataset back in
   ggplot(aes(.fittedPC1, .fittedPC2, color = `Primary lesion size(cm^2)`)) + 
   geom_point(size = 1.5)
+
+ggsave(filename = '../results/pca1.png')
 ```
 
 ```{r}
@@ -89,6 +93,8 @@ pca_fit %>%
   ) +
   xlim(-1.25, .5) + ylim(-.5, 1) +
   coord_fixed() 
+
+ggsave(filename = '../results/pca_arrows.png')
 ```
 
 ```{r}
@@ -104,4 +110,6 @@ pca_fit %>%
     labels = scales::percent_format(),
     expand = expansion(mult = c(0, 0.01))
   ) 
+
+ggsave(filename = '../results/pca1_bars.png')
 ```
