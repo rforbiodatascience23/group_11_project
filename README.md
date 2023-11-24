@@ -10,6 +10,5 @@ Byar & Greene prostate cancer data, from Andrews DF and Herzberg AM (1985): [Dat
 
 This data set is a result of Green and Byar's (1980, Bulletin Cancer, Paris, 67, 477-488) experiment anal from a randomised clinical trial comparing treatment for patients with prostate cancer in stages 3 and 4. These authors assessed the effects of treatment on survival using an exponential regression model with treatment by covariate interactions. Clinical considerations led to conclusions being drawn about the relationship between treatment and different causes of death. This paper presents a more direct approach for assessing treatment effect based on a model which recognizes the competing-risks nature of the problem.
 
-\
-
-\
+The file from the original source was in a .xls format which was unable to be read by R. We could have converted it to .xlsx but we needed to install a package on the server, which is not allowed. For this reason, we have the data file in this repository, which is outside from the rforbiodatascience23.
+ This is the link to the original file: https://hbiostat.org/data/repo/prostate.xls
