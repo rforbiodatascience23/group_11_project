@@ -39,8 +39,21 @@ na_count
 ```{r}
 #| label: Percentage of missing values
 na_percentage <- round((na_count / rows_count) * 100, 1)
-na_percentage_table <- data.frame(Column_Names = names(na_percentage), NA_Percentage = na_percentage)
-na_percentage_table
+na_percentage_table <- data.frame( NA_Percentage = na_percentage)
+
+na_percentage_plot <- ggplot(na_percentage_table, aes(x = rownames(na_percentage_table), y = NA_Percentage)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Missing Values",
+       x="Features",
+       y="Percentage") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+na_percentage_plot
+
+#Save
+ggsave('../results/na_percentage.png', na_percentage_plot)
+
 ```
 
 ```{r}
@@ -81,8 +94,12 @@ mean_statistics
 
 
 ```{r}
+<<<<<<< HEAD
 #| label: Age distribution plot
 #| warning: false
+=======
+#age_distribution 
+>>>>>>> a1a0026376eb2d9095a9442961b4fff546606b00
 age_distribution <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(stage))) +
   geom_density(alpha=0.3) +
   labs(title = "Distribution of Age based on Cancer Stage",
@@ -109,6 +126,10 @@ deaths_across_groups<-prostate_data_augment |>
       axis.text.y = element_text(size =10)) +
   scale_fill_manual(values = c("tomato2", "skyblue2", "palegreen3"), name = "Age group", labels = c("< 75 years", "75 to 80 years", "> 80 years")) 
 deaths_across_groups
+
+#Save
+ggsave('../results/causes_across_groups.png', deaths_across_groups)
+
 ```
 
 ```{r}
@@ -122,6 +143,9 @@ weight_age_across_cancers<-prostate_data_augment|>
   facet_wrap(~`Cause of Death`)+
   labs()
 weight_age_across_cancers
+
+#Save
+ggsave('../results/wt_age_across_cancers.png', weight_age_across_cancers)
 ```
 
 
@@ -144,7 +168,7 @@ lesion_on_stage_plot
 ```{r}
 #| label: Lesion size and haemoglobin correlation on each stage colored by Risk
 
-haem_and_tumor_plot <-prostate_data_augment|>
+haem_and_lesion_plot <-prostate_data_augment|>
   filter(!is.na(`Primary lesion size(cm^2)`))|>
   filter(!is.na(Risk))|>
   ggplot(aes(x = `Serum haemoglobin level`, 
@@ -156,13 +180,16 @@ haem_and_tumor_plot <-prostate_data_augment|>
     "4" = "Stage 4"))) +
   labs(x = "Haemoglobin Level", y = "Lesion Size", color = "Risk") +
   theme_minimal()
-haem_and_tumor_plot 
+haem_and_lesion_plot 
+
+#Save
+ggsave('../results/haem_vs_lesion.png', haem_and_lesion_plot)
 ```
 
 ```{r}
 
 #| label: Correlation of Gleason stage -Lesion size colored by cancer stage
-gleason_and_tumor_by_stage<-prostate_data_augment|>
+gleason_and_lesion_by_stage<-prostate_data_augment|>
   filter(!is.na(`Primary lesion size(cm^2)`))|>
   filter(!is.na(`Gleason stage`))|>
   ggplot(aes(x = `Gleason stage`,
@@ -175,7 +202,10 @@ gleason_and_tumor_by_stage<-prostate_data_augment|>
     y = "Lesion size",
     title = "Lesion size vs Gleason Stage by Cancer Stage")+
   scale_color_discrete(name = "Cancer Stage",labels = c("Stage 3", "Stage 4"))
-gleason_and_tumor_by_stage
+gleason_and_lesion_by_stage
+
+#Save
+ggsave('../results/gleason_vs_lesion.png',gleason_and_lesion_by_stage)
 ```
 
 
@@ -193,6 +223,9 @@ ap_bm_relationship <-prostate_data_augment|>
   facet_wrap(~ Risk)
 
 ap_bm_relationship
+
+#Save
+ggsave('../results/ap_vs_bm.png',ap_bm_relationship)
 ```
 
 ```{r}
