@@ -1,4 +1,5 @@
 ```{r}
+#| label: Loading packages
 library(ggplot2)
 library("tidyverse")
 library(dplyr)
@@ -6,46 +7,47 @@ library(broom)
 ```
 
 ```{r}
-# First load the cleaned data 
+#| label: Loading the cleaned data 
+#| message: false
 prostate_data_augment<-read_delim("../data/03_dat_aug.tsv")
 ```
 
 ##Data exploration
 
 ``` {r}
-#Number of rows 
+#| label: Number of rows 
 rows_count <- nrow(prostate_data_augment)
 rows_count 
 ```
 
 ```{r}
-# Number of features
+#| label: Number of features
 features_count <- ncol(prostate_data_augment)
 features_count
 ```
 
 ```{r}
-#Number of missing values
+#| label: Number of missing values
 na_count <- colSums(is.na(prostate_data_augment))
 na_count
 ```
 
 ```{r}
-#Percentage of missing values
+#| label: Percentage of missing values
 na_percentage <- round((na_count / rows_count) * 100, 1)
 na_percentage_table <- data.frame(Column_Names = names(na_percentage), NA_Percentage = na_percentage)
 na_percentage_table
 ```
 
 ```{r}
-#Summary statistics
+#| label: Summary statistics
 data_summary <- data.frame(unclass(summary(prostate_data_augment)),
                            check.names = FALSE)
 data_summary
 ```
 
 ```{r}
-#Destribution of Age based on stage
+#| label: Destribution of Age based on stage
 age_status_summary <- prostate_data_augment %>%
   group_by(stage) |>
   filter(!is.na(age))|>
@@ -57,7 +59,7 @@ age_status_summary
 ```
 
 ```{r}
-#Mean statistics
+#| label: Mean statistics
 mean_statistics<- prostate_data_augment %>%
   group_by(stage) %>%
   summarise(
@@ -75,7 +77,7 @@ mean_statistics
 
 
 ```{r}
-#Age distribution plot
+#| label: Age distribution plot
 age_distribution <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(stage))) +
   geom_density(alpha=0.5) +
   labs(title = "Distribution of Age based on Cancer Stage",
@@ -89,7 +91,7 @@ plot
 ```
 
 ```{r}
-#Cause of death across Age groups
+#| label: Cause of death across Age groups
 deaths_across_groups<-prostate_data_augment |>
   filter(!is.na(`Cause of Death`)) |>
   ggplot(aes(x = `Cause of Death`, fill = as.factor(`Age group`))) +
@@ -103,8 +105,9 @@ deaths_across_groups<-prostate_data_augment |>
   scale_fill_manual(values = c("tomato2", "skyblue2", "palegreen3"), name = "Age group", labels = c("< 75 years", "75 to 80 years", "> 80 years")) 
 deaths_across_groups
 ```
+
 ```{r}
-#Association of weight index and age across all types of cancer colored by Risk
+#| label: Association of weight index and age across all types of cancer colored by Risk
 
 weight_age_across_cancers<-prostate_data_augment|> 
   filter(!is.na(`Cause of Death`))|>
@@ -119,7 +122,7 @@ weight_age_across_cancers
 
 
 ```{r}
-# Boxplot of size of the tumor in each stage
+#| label: Boxplot of size of the tumor in each stage
 lesion_on_stage_plot<-prostate_data_augment|>
   filter(!is.na(`Primary lesion size(cm^2)`)) |>
   ggplot(aes(x = factor(`stage` ), y = `Primary lesion size(cm^2)`)) +
@@ -134,7 +137,7 @@ lesion_on_stage_plot
 ```
 
 ```{r}
-#Lesion size and haemoglobin correlation on each stage colored by Risk
+#| label: Lesion size and haemoglobin correlation on each stage colored by Risk
 
 haem_and_tumor_plot <-prostate_data_augment|>
   filter(!is.na(`Primary lesion size(cm^2)`))|>
@@ -153,7 +156,7 @@ haem_and_tumor_plot
 
 ```{r}
 
-# Correlation of Gleason stage -Lesion size colored by cancer stage
+#| label: Correlation of Gleason stage -Lesion size colored by cancer stage
 gleason_and_tumor_by_stage<-prostate_data_augment|>
   filter(!is.na(`Primary lesion size(cm^2)`))|>
   filter(!is.na(`Gleason stage`))|>
@@ -172,7 +175,7 @@ gleason_and_tumor_by_stage
 
 
 ```{r}
-# Relationship Between Prostate Acid Levels and Bone Metastases
+#| label: Relationship Between Prostate Acid Levels and Bone Metastases
 ap_bm_relationship <-prostate_data_augment|>
   filter(!is.na(Risk))|>
   ggplot(aes(x = ap, y = bm)) +
