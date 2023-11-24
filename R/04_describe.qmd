@@ -4,6 +4,8 @@ library(ggplot2)
 library("tidyverse")
 library(dplyr)
 library(broom)
+library(viridis)
+library(RColorBrewer)
 ```
 
 ```{r}
@@ -18,6 +20,8 @@ prostate_data_augment<-read_delim("../data/03_dat_aug.tsv")
 #| label: Number of rows 
 rows_count <- nrow(prostate_data_augment)
 rows_count 
+
+# 502 patients in the study
 ```
 
 ```{r}
@@ -47,8 +51,8 @@ data_summary
 ```
 
 ```{r}
-#| label: Destribution of Age based on stage
-age_status_summary <- prostate_data_augment %>%
+#| label: Distribution of Age based on stage
+age_status_summary <- prostate_data_augment |>
   group_by(stage) |>
   filter(!is.na(age))|>
   summarise(mean_age = mean(age),
@@ -78,8 +82,9 @@ mean_statistics
 
 ```{r}
 #| label: Age distribution plot
+#| warning: false
 age_distribution <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(stage))) +
-  geom_density(alpha=0.5) +
+  geom_density(alpha=0.3) +
   labs(title = "Distribution of Age based on Cancer Stage",
        x = "Age",
        y = "Density",
@@ -87,7 +92,7 @@ age_distribution <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(sta
   scale_fill_manual(values = c("blue", "red"), name = NULL, labels = c("Stage 3", "Stage 4")) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-plot
+plot(age_distribution)
 ```
 
 ```{r}
@@ -190,6 +195,117 @@ ap_bm_relationship <-prostate_data_augment|>
 ap_bm_relationship
 ```
 
+```{r}
+
+plot1 <-prostate_data_augment|>
+  filter(`Cause of Death` != 9 & `Cause of Death` != 8 & `Cause of Death` != 7 & `Cause of Death` != 5)|>
+  ggplot(aes(x = `Weight index`, 
+             y = `Systolic blood pressure`, 
+             color = factor(`Cause of Death`))) +
+  geom_point() +
+  scale_fill_viridis_d()+
+  geom_smooth(method = "lm", se = FALSE, color = "black", lwd=0.3)+
+  #facet_wrap(~`Cause of Death`, ncol=10)+
+  facet_wrap(~`Cause of Death`,labeller = labeller(`Cause of Death` = c(
+    0 ~ "prostatic cancer",
+    3 ~ "other cancer",
+    1 ~ "heart or vascular",
+    2 ~ "cerebrovascular",
+    4 ~ "respiratory disease",
+    6 ~ "pulmonary embolus")))+
+    #5 ~ "other specific non", #maybe delete
+    #7 ~ "unspecified non", #maybe delete
+   # 8 ~ "unknown cause"))) + #maybe delete
+  labs(x = "Weight index", y = "Systolic blood pressure") +
+  scale_color_discrete(name = "Cause of Death", labels = c(
+    "0" = "Prostate Cancer",
+    "3" = "Other Cancer",
+    "1" = "Heart or Vascular Disease",
+    "2" = "Cerebrovascular Disease",
+    "4" = "Respiratory Disease",
+    "6" = "Pulmonary Embolus",
+    "5" = "Other Specific Non",
+    "7" = "Unspecified Non",
+    "8" = "Unknown Cause"
+  )) + 
+  theme_minimal()
+
+plot(plot1)
+
+plot2 <-prostate_data_augment|>
+  filter(`Cause of Death` != 9 & `Cause of Death` != 8 & `Cause of Death` != 7 & `Cause of Death` != 5)|>
+  ggplot(aes(x = `Diastolic blood pressure`, 
+             y = `Systolic blood pressure`, 
+             color = factor(`Cause of Death`))) +
+  geom_point() +
+  scale_fill_viridis_d()+
+  geom_smooth(method = "lm", se = FALSE, color = "black", lwd=0.3)+
+  #facet_wrap(~`Cause of Death`, ncol=10)+
+  facet_wrap(~`Cause of Death`,labeller = labeller(`Cause of Death` = c(
+    0 ~ "prostatic cancer",
+    3 ~ "other cancer",
+    1 ~ "heart or vascular",
+    2 ~ "cerebrovascular",
+    4 ~ "respiratory disease",
+    6 ~ "pulmonary embolus")))+
+    #5 ~ "other specific non", #maybe delete
+    #7 ~ "unspecified non", #maybe delete
+   # 8 ~ "unknown cause"))) + #maybe delete
+  labs(x = "Diastolic blood pressure", y = "Systolic blood pressure", title = "Systolic vs diastolic blood pressure by Cause of Death") +
+  scale_color_discrete(name = "Cause of Death", labels = c(
+    "0" = "Prostate Cancer",
+    "3" = "Other Cancer",
+    "1" = "Heart or Vascular Disease",
+    "2" = "Cerebrovascular Disease",
+    "4" = "Respiratory Disease",
+    "6" = "Pulmonary Embolus",
+    "5" = "Other Specific Non",
+    "7" = "Unspecified Non",
+    "8" = "Unknown Cause"
+  )) + 
+  theme_minimal()
+plot(plot2)
+```
+```{r}
+#| label: Systolic vs diastolic blood pressure by History of Cardiovascular disease
+plot3 <-prostate_data_augment|>
+  filter(!is.na(`History of CVD`))|>
+  ggplot(aes(x = `Diastolic blood pressure`, 
+             y = `Systolic blood pressure`, 
+             color = factor(`History of CVD`))) +
+  geom_point() +
+  scale_fill_viridis_d()+
+  geom_smooth(method = "lm", se = FALSE, color = "black", lwd=0.3)+
+  facet_wrap(~`History of CVD`,labeller = labeller(`History of CVD` = c(
+    0 ~ "No",
+    1 ~ "Yes")))+
+  labs(x = "Diastolic blood pressure", y = "Systolic blood pressure", title = "Systolic vs diastolic blood pressure by History of Cardiovascular disease") +
+  scale_color_discrete(name = "History of Cardiovascular disease", labels = c(
+    "No",
+    "Yes")) + 
+  theme_minimal()+
+  theme(strip.text = element_blank())
+
+plot(plot3)
+```
+
+```{r}
+#| label: Distribution of Weight index based on Activity level
+plot4 <-ggplot(prostate_data_augment,aes(x = `Weight index`,fill = as.factor(`Activity Level`))) +
+  geom_density(alpha=0.3) +
+   facet_wrap(~`Activity Level`,labeller = labeller(`History of CVD` = c(
+    0 ~ "Normal Activity",
+    1 ~ "In bed > 50% of the day")))+
+  labs(title = "Distribution of Weight index based on Activity level",
+       x = "Weight index",
+       y = "Density",
+       fill = "Activity Level") +
+  scale_fill_manual(values = c("blue", "red"), name = NULL, labels = c("Normal Activity", "In bed > 50% of the day")) +
+  theme_minimal() +
+  theme(strip.text = element_blank())
+  
+plot(plot4)
+```
 
 
 
