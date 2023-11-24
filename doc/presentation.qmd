@@ -127,6 +127,20 @@ Finally, we expored a possible relationship between Serum prostatic acid phospha
 
 
 ## PCA ORLA
+<font size="5"> There were 3 main steps to this PCA, outlined below:
+Looking at the data in PC coordinates.
+
+```{r}
+pca_fit|>
+  augment(prostate_data_augment)|> # add original dataset back in
+  ggplot(aes(.fittedPC1, .fittedPC2, color = `stage`)) + 
+  geom_point(size = 1.5)
+```
+
+Looking at the rotation matrix.
+
+Looking at the variance explained by each PC
+
 
 ## Logistic Regression Modelling
 
