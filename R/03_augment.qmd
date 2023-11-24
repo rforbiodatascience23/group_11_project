@@ -14,7 +14,7 @@ prostate_data <- read_delim(file = "../data/02_dat_clean.tsv", show_col_types = 
 ```
 
 ```{r}
-
+#| label: Augmenting columns
 #Introduce new column "dosage" that contains low and high based on amount of drug used
 prostate_data_augment<-prostate_data_clean|>
   mutate(`Dosage`=case_when(
@@ -43,6 +43,7 @@ prostate_data_augment<-prostate_data_augment|>
 ```
 
 ```{r}
+#| label: Augmenting haemoglobin data
 mean_haemoglobin_by_age <- prostate_data_augment |>
   group_by(`Age group`) |>
   filter(!is.na(`Age group`))|>
