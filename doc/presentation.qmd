@@ -132,25 +132,18 @@ Finally, we expored a possible relationship between Serum prostatic acid phospha
 ## PCA ORLA
 <font size="5"> There were 3 main steps to this PCA, outlined below:
 Looking at the data in PC coordinates.
-
-```{r}
-pca_fit|>
-  augment(prostate_data_augment)|> # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC2, color = `stage`)) + 
-  geom_point(size = 1.5)
-```
-
 Looking at the rotation matrix.
+Looking at the variance explained by each PC.
 
-Looking at the variance explained by each PC
-
-
+Here, the data in PC coordinates is plotted 
 ```{r}
 pca_fit|>
   augment(prostate_data_augment)|> # add original dataset back in
   ggplot(aes(.fittedPC1, .fittedPC2, color = `stage`)) + 
   geom_point(size = 1.5)
 ```
+
+
 
 ## Logistic Regression Modelling
 
@@ -179,6 +172,49 @@ knitr::include_graphics("../results/glm_02.png")
 
 ## PCA discussion
 
+<<<<<<< HEAD
+The arrows show the direction and strength of the contribution from each variable to the first two PCs. 
+Here it is clear that Treatment regime had a very small but positive contribution to the PCs. Age and history of CVD seem to be quite related as in stage, Gleaseon stage and primary lesion size, indicating that they are positively correlated and contribute similarly to the variation captured by the PCs.
+```{r}
+arrow_style <- arrow(
+  angle = 20, ends = "first", type = "closed", length = grid::unit(8, "pt")
+)
+
+# plot rotation matrix
+pca_fit %>%
+  tidy(matrix = "rotation") %>%
+  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
+  ggplot(aes(PC1, PC2)) +
+  geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
+  geom_text(
+    aes(label = column),
+    hjust = 1, nudge_x = -0.02, 
+    color = "skyblue2"
+  ) +
+  xlim(-1.25, .5) + ylim(-.5, 1) +
+  coord_fixed() 
+```
+
+This plot shows that over 25% of the variation is captured by the first component.
+This is a somewhat substantial portion of the variability in our data. 
+
+```{r}
+pca_fit %>%
+  tidy(matrix = "eigenvalues")
+
+pca_fit %>%
+  tidy(matrix = "eigenvalues") %>%
+  ggplot(aes(PC, percent)) +
+  geom_col(fill = "#56B4E9", alpha = 0.8) +
+  scale_x_continuous(breaks = 1:9) +
+  scale_y_continuous(
+    labels = scales::percent_format(),
+    expand = expansion(mult = c(0, 0.01))
+  ) 
+```
+
+=======
+>>>>>>> ae7c33214d51c9e5bf8f41d4ae97cfc95856ba71
 
 ## Predictors of Dosage for each Cancer Stage ?
 
