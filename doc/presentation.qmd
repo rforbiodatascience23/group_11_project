@@ -165,6 +165,7 @@ knitr::include_graphics("../results/glm_02.png")
 
 ## PCA discussion
 
+
 ## Predictors of Dosage for each Cancer Stage ?
 
 -   In our analysis of the Logistic Regression model, we encountered several predictors that did not exhibit significant influence on the dosage prediction per cancer stage.
