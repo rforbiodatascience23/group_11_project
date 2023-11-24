@@ -172,6 +172,7 @@ knitr::include_graphics("../results/glm_02.png")
 
 ## PCA discussion
 
+<<<<<<< HEAD
 The arrows show the direction and strength of the contribution from each variable to the first two PCs. 
 Here it is clear that Treatment regime had a very small but positive contribution to the PCs. Age and history of CVD seem to be quite related as in stage, Gleaseon stage and primary lesion size, indicating that they are positively correlated and contribute similarly to the variation captured by the PCs.
 ```{r}
@@ -212,6 +213,8 @@ pca_fit %>%
   ) 
 ```
 
+=======
+>>>>>>> ae7c33214d51c9e5bf8f41d4ae97cfc95856ba71
 
 ## Predictors of Dosage for each Cancer Stage ?
 
