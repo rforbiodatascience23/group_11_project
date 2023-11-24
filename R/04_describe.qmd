@@ -94,12 +94,9 @@ mean_statistics
 
 
 ```{r}
-<<<<<<< HEAD
 #| label: Age distribution plot
 #| warning: false
-=======
 #age_distribution 
->>>>>>> a1a0026376eb2d9095a9442961b4fff546606b00
 age_distribution <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(stage))) +
   geom_density(alpha=0.3) +
   labs(title = "Distribution of Age based on Cancer Stage",
@@ -229,8 +226,9 @@ ggsave('../results/ap_vs_bm.png',ap_bm_relationship)
 ```
 
 ```{r}
+#| label: Plots by Cause of Death
 
-plot1 <-prostate_data_augment|>
+windex_sbp_causeofdeath <-prostate_data_augment|>
   filter(`Cause of Death` != 9 & `Cause of Death` != 8 & `Cause of Death` != 7 & `Cause of Death` != 5)|>
   ggplot(aes(x = `Weight index`, 
              y = `Systolic blood pressure`, 
@@ -249,7 +247,7 @@ plot1 <-prostate_data_augment|>
     #5 ~ "other specific non", #maybe delete
     #7 ~ "unspecified non", #maybe delete
    # 8 ~ "unknown cause"))) + #maybe delete
-  labs(x = "Weight index", y = "Systolic blood pressure") +
+  labs(x = "Weight index", y = "Systolic blood pressure", title = "Weight index vs Systolic blood pressure by Cause of Death") +
   scale_color_discrete(name = "Cause of Death", labels = c(
     "0" = "Prostate Cancer",
     "3" = "Other Cancer",
@@ -261,11 +259,15 @@ plot1 <-prostate_data_augment|>
     "7" = "Unspecified Non",
     "8" = "Unknown Cause"
   )) + 
-  theme_minimal()
+  theme_minimal()+
+  theme(strip.text = element_blank())
 
-plot(plot1)
 
-plot2 <-prostate_data_augment|>
+plot(windex_sbp_causeofdeath)
+
+ggsave('../results/weightindex_sbp_causeofdeath.png', windex_sbp_causeofdeath)
+
+dsp_sbp_causeofdeath <-prostate_data_augment|>
   filter(`Cause of Death` != 9 & `Cause of Death` != 8 & `Cause of Death` != 7 & `Cause of Death` != 5)|>
   ggplot(aes(x = `Diastolic blood pressure`, 
              y = `Systolic blood pressure`, 
@@ -284,7 +286,7 @@ plot2 <-prostate_data_augment|>
     #5 ~ "other specific non", #maybe delete
     #7 ~ "unspecified non", #maybe delete
    # 8 ~ "unknown cause"))) + #maybe delete
-  labs(x = "Diastolic blood pressure", y = "Systolic blood pressure", title = "Systolic vs diastolic blood pressure by Cause of Death") +
+  labs(x = "Diastolic blood pressure", y = "Systolic blood pressure", title = "Diastolic vs Systolic blood pressure by Cause of Death") +
   scale_color_discrete(name = "Cause of Death", labels = c(
     "0" = "Prostate Cancer",
     "3" = "Other Cancer",
@@ -296,12 +298,18 @@ plot2 <-prostate_data_augment|>
     "7" = "Unspecified Non",
     "8" = "Unknown Cause"
   )) + 
-  theme_minimal()
-plot(plot2)
+  theme_minimal()+
+  theme(strip.text = element_blank())
+
+plot(dsp_sbp_causeofdeath)
+
+ggsave('../results/dsp_sbp_causeofdeath.png', dsp_sbp_causeofdeath)
+
 ```
+
 ```{r}
 #| label: Systolic vs diastolic blood pressure by History of Cardiovascular disease
-plot3 <-prostate_data_augment|>
+dsp_sbp_historycvd <-prostate_data_augment|>
   filter(!is.na(`History of CVD`))|>
   ggplot(aes(x = `Diastolic blood pressure`, 
              y = `Systolic blood pressure`, 
@@ -319,13 +327,15 @@ plot3 <-prostate_data_augment|>
   theme_minimal()+
   theme(strip.text = element_blank())
 
-plot(plot3)
+plot(dsp_sbp_historycvd)
+
+ggsave('../results/dsp_sbp_historycvd.png', dsp_sbp_historycvd)
 ```
 
 ```{r}
 #| label: Distribution of Weight index based on Activity level
 #| warning: false
-plot4 <-ggplot(prostate_data_augment,aes(x = `Weight index`,fill = as.factor(`Activity Level`))) +
+windex_actlevel <-ggplot(prostate_data_augment,aes(x = `Weight index`,fill = as.factor(`Activity Level`))) +
   geom_density(alpha=0.3) +
    facet_wrap(~`Activity Level`,labeller = labeller(`History of CVD` = c(
     0 ~ "Normal Activity",
@@ -338,7 +348,10 @@ plot4 <-ggplot(prostate_data_augment,aes(x = `Weight index`,fill = as.factor(`Ac
   theme_minimal() +
   theme(strip.text = element_blank())
   
-plot(plot4)
+plot(windex_actlevel)
+
+ggsave('../results/windex_actlevel.png', windex_actlevel)
+
 ```
 
 
