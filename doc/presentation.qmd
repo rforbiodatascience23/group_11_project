@@ -40,8 +40,10 @@ The data consists of 25 features with 502 rows. First,we look at the NA values
 
 ```{r}
 #Number of missing values
+na_count <- colSums(is.na(prostate_data_augment))
+rows_count <- nrow(prostate_data_augment)
 na_percentage <- round((na_count / rows_count) * 100, 1)
-na_percentage_table <- data.frame(Column_Names = names(na_percentage), NA_Percentage = na_percentage)
+na_percentage_table <- data.frame( NA_Percentage = na_percentage)
 na_percentage_table
 ```
 
