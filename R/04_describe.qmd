@@ -324,6 +324,7 @@ plot(plot3)
 
 ```{r}
 #| label: Distribution of Weight index based on Activity level
+#| warning: false
 plot4 <-ggplot(prostate_data_augment,aes(x = `Weight index`,fill = as.factor(`Activity Level`))) +
   geom_density(alpha=0.3) +
    facet_wrap(~`Activity Level`,labeller = labeller(`History of CVD` = c(
