@@ -6,25 +6,61 @@ editor: visual
 
 ```{r}
 library(broom)
+
+```
+
+```{r}
+variables_to_plot <- prostate_data_augment[, c("Primary lesion size(cm^2)", "age", "Systolic blood pressure", "Diastolic blood pressure")]
+
+# Reshape the data for ggplot
+data_long <- gather(variables_to_plot, key = "Variable", value = "Value")
+
+# Create multiple Q-Q plots with facet_wrap
+ggplot(data_long, aes(sample = Value)) +
+  geom_qq() +
+  facet_wrap(~ Variable, scales = "free") +
+  ggtitle("Multiple Q-Q Plots")
 ```
 
 ```{r}
 prostate_data_augment <-prostate_data_augment |>
   filter(!is.na(age)) |>
-  filter(!is.na(`Primary lesion size(cm^2)`))
+  filter(!is.na(`Primary lesion size(cm^2)`)) |>
+  filter(!is.na(`Gleason stage`)) |>
+   filter(!is.na(`Weight index`))
 ```
 
 ```{r}
-library(broom)  # devtools::install_github("tidymodels/broom")
+library(broom) 
+library(scales)
+
+#method 1 - normalise data and standardise data
+
 pca_fit <- prostate_data_augment |>
-  select(`Treatment regime`,`stage`,`age`, `Serum haemoglobin level`, `History of CVD`, `Primary lesion size(cm^2)`, `Systolic blood pressure`, `Diastolic blood pressure`)|>
-  prcomp(scale = TRUE) 
+  select(`Treatment regime`, `age`, `Primary lesion size(cm^2)`, `Gleason stage`, `Serum haemoglobin level`, `stage`,`History of CVD`, `Activity Level`)|>
+  prcomp(scale=TRUE) 
+
+
+#method 2  
+
+#pca_fit <- prostate_data_augment |>
+#  select(`Treatment regime`,`stage`,`age`, `Serum haemoglobin level`, `Primary lesion size(cm^2)`,`Systolic blood pressure`, )|>
+#  prcomp(scale=TRUE) 
+  
+
+```
+
+```{r}
+pca_fit|>
+  augment(prostate_data_augment)|> # add original dataset back in
+  ggplot(aes(.fittedPC1, .fittedPC2, color = `stage`)) + 
+  geom_point(size = 1.5)
 ```
 
 ```{r}
 pca_fit |>
   augment(prostate_data_augment) %>% # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC7, color = `Primary lesion size(cm^2)`)) + 
+  ggplot(aes(.fittedPC1, .fittedPC2, color = `Primary lesion size(cm^2)`)) + 
   geom_point(size = 1.5)
 ```
 
