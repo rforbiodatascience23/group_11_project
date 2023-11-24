@@ -46,7 +46,6 @@ prostate_estimates <- prostate_estimates %>%
 
 ```
 
-
 ```{r}
 # Plotting coefficients
 plt_glm <- ggplot(prostate_estimates, aes(x = term, y = estimate, group = stage,  color = stage, shape = significant )) +
@@ -78,5 +77,3 @@ plt_glm
 #Save
 ggsave('../results/glm_02.png', plt_glm)
 ```
-
-
