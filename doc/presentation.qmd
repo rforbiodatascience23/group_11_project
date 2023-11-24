@@ -79,16 +79,7 @@ knitr::include_graphics("../results/ap_vs_bm.png")
 ```
 
 
-## PCA ORLA
-<font size="5"> There were 3 main steps to this PCA, outlined below:
-Looking at the data in PC coordinates.
-Looking at the rotation matrix.
-Looking at the variance explained by each PC.
 
-Here, the data in PC coordinates is plotted 
-```{r}
-knitr::include_graphics("../results/pca1.png")
-```
 
 
 
@@ -115,28 +106,45 @@ knitr::include_graphics("../results/glm_02.png")
 :::
 :::
 
-## Discussion {.centered}
-
-## PCA discussion
-
-<<<<<<< HEAD
-The arrows show the direction and strength of the contribution from each variable to the first two PCs. 
-Here it is clear that Treatment regime had a very small but positive contribution to the PCs. Age and history of CVD seem to be quite related as in stage, Gleaseon stage and primary lesion size, indicating that they are positively correlated and contribute similarly to the variation captured by the PCs.
-```{r}
-knitr::include_graphics("../results/pca_arrows.png")
-```
-
-This plot shows that over 25% of the variation is captured by the first component.
-This is a somewhat substantial portion of the variability in our data. 
-
-```{r}
-knitr::include_graphics("../results/pca1_bars.png")
-```
-
-=======
->>>>>>> ae7c33214d51c9e5bf8f41d4ae97cfc95856ba71
 
 ## Predictors of Dosage for each Cancer Stage ?
 
 -   In our analysis of the Logistic Regression model, we encountered several predictors that did not exhibit significant influence on the dosage prediction per cancer stage.
 -   Although valuable insights could be gained from a more explorative analysis, we prioritized to mainly focus on the scopes of the course.
+
+
+## Principal Component Analysis (PCA)
+
+<font size="5"> There were 3 main steps to this PCA, outlined below:
+Looking at the data in PC coordinates.
+Looking at the rotation matrix.
+Looking at the variance explained by each PC.
+
+Here, the data in PC coordinates is plotted 
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/pca1.png")
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/pca_arrows.png")
+```
+:::
+:::
+
+
+
+
+
+
+
+
