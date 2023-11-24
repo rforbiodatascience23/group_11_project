@@ -129,6 +129,23 @@ gleason_and_tumor_by_stage
 
 Finally, we expored a possible relationship between Serum prostatic acid phosphatase and Bone Metastases.What we found was that in patients with high risk, bone metastases was prevelant at low levels of the phosphatase.
 
+```{r}
+# Relationship Between Prostate Acid Levels and Bone Metastases
+ap_bm_relationship <-prostate_data_augment|>
+  filter(!is.na(Risk))|>
+  ggplot(aes(x = ap, y = bm)) +
+  geom_point(aes(color = factor(bm)), size = 3) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  labs(x = "Prostate Acid Levels", y = "Bone Metastases", color = "Bone Metastases") +
+  scale_color_manual(values = c("blue", "red"), labels = c("No Metastases", "Metastases")) +
+  ggtitle("Relationship Between Prostate Acid Levels and Bone Metastases") +
+  theme_minimal()+
+  facet_wrap(~ Risk)
+
+ap_bm_relationship
+```
+
+
 ## PCA ORLA
 <font size="5"> There were 3 main steps to this PCA, outlined below:
 Looking at the data in PC coordinates.
