@@ -39,112 +39,43 @@ knitr::include_graphics("figs/raw_dataset.png")
 The data consists of 25 features with 502 rows. First,we look at the NA values
 
 ```{r}
-#Number of missing values
-na_count <- colSums(is.na(prostate_data_augment))
-rows_count <- nrow(prostate_data_augment)
-na_percentage <- round((na_count / rows_count) * 100, 1)
-na_percentage_table <- data.frame( NA_Percentage = na_percentage)
-na_percentage_table
+knitr::include_graphics("../results/na_percentage.png")
 ```
 
 Analyzing the dataset reveals that the proportion of missing values, NA, maintains below 2.5% of the overall dataset across most features. In respect to the entire dataset size, this amount of missingness looks small. The "Cause of Death" feature is an exception, with NA entries accounting for around 29.5% of the total data. However, this particular occurrence does not pose a concern due to the contextual correlation with the "status" feature. In this dataset, an NA value in the "Cause of Death" feature signifies that the corresponding patient is alive, as per the interpretation of the "status" feature. Next, we take a look at the summary statistics:
 
 ```{r}
 #Summary statistics
-data_summary <- data.frame(unclass(summary(prostate_data_augment)),
-                           check.names = FALSE)
-data_summary
 ```
 
 The summary statistics indicate that the mean age of the patients is approximately 71.5 years. Among them, 42.43% have a documented history of cardiovascular disease. Additionally, the average systolic and diastolic blood pressures are recorded at 14.35 and 8.149, respectively. This suggests that while the systolic blood pressure tends to be elevated, the diastolic pressure remains within the normal range, considering that only hundreds and tens are recorded. Furthermore, the prevalence of bone metastasis appears to be comparatively lower.
 
 ```{r}
-#Cause of death across Age groups
-deaths_across_groups<-prostate_data_augment |>
-  filter(!is.na(`Cause of Death`)) |>
-  ggplot(aes(x = `Cause of Death`, fill = as.factor(`Age group`))) +
-  geom_bar(position = "dodge") +
-  labs(title = "Cause of Death across Age Groups",
-       x = "Cause of Death",
-       y = "Number of Cases") +
-  theme(legend.position = "bottom", 
-      axis.text.x = element_text(angle = 45,hjust=1,size=10), 
-      axis.text.y = element_text(size =10)) +
-  scale_fill_manual(values = c("tomato2", "skyblue2", "palegreen3"), name = "Age group", labels = c("< 75 years", "75 to 80 years", "> 80 years")) 
-deaths_across_groups
+knitr::include_graphics("../results/causes_across_groups.png")
 ```
 
 Across various age groups, a notable trend emerges in the causes of death among patients affected by prostate cancer and cardiovascular diseases. Specifically, a significant majority of individuals who succumbed to prostate cancer or cardiovascular diseases were under the age of 75. Those above 80 had the lowest deaths across all recorded causes.
 
 ```{r}
-#Association of weight index and age across all types of cancer colored by Risk
-
-weight_age_across_cancers<-prostate_data_augment|> 
-  filter(!is.na(`Cause of Death`))|>
-  filter(!is.na(Risk))|>
-  ggplot(aes(x = age, y = `Weight index`, color = Risk)) +
-  geom_point() +
-  facet_wrap(~`Cause of Death`)+
-  labs()
-weight_age_across_cancers
+knitr::include_graphics("../results/wt_age_across_cancers.png")
 ```
 
-A tendency was also revealed across the causes of death: those with a low Weight Index, defined as Weight in kilograms - Height in centimeters + 200, were significantly more likely to die, especially those over the age of 70. This increased risk was prevalent across all causes of mortality. Patients at all reported ages were consistently identified as being at high risk for prostate cancer. Focusing now in prostate cancer, we took a look at a possible relationship between haemoglobin levels and the size of the lession.
+A tendency was also revealed across the causes of death: those with a low Weight Index, defined as Weight in kilograms - Height in centimeters + 200, were significantly more likely to die, especially those over the age of 70. This increased risk was prevalent across all causes of mortality. Patients at all reported ages were consistently identified as being at high risk for prostate cancer. Focusing now in prostate cancer, we took a look at a possible relationship between haemoglobin levels and the size of the lesion.
 
 ```{r}
-#Lesion size and haemoglobin correlation on each stage colored by Risk
-
-haem_and_tumor_plot <-prostate_data_augment|>
-  filter(!is.na(`Primary lesion size(cm^2)`))|>
-  filter(!is.na(Risk))|>
-  ggplot(aes(x = `Serum haemoglobin level`, 
-             y = `Primary lesion size(cm^2)`, 
-             color = Risk)) +
-  geom_point() +
-  facet_wrap(~stage,labeller = labeller(stage = c(
-    "3" = "Stage 3",
-    "4" = "Stage 4"))) +
-  labs(x = "Haemoglobin Level", y = "Lesion Size", color = "Risk") +
-  theme_minimal()
-haem_and_tumor_plot
+knitr::include_graphics("../results/haem_vs_lesion.png")
 ```
 
 The analysis indicates an absence of correlation between haemoglobin levels and lesion size across the two cancer stages. However, a noteworthy finding emerged; patients with elevated levels of haemoglobin in both stages were consistently associated with a higher risk profile. There was however a correlation between the Gleason stage and the lesion size. Data indicated that as the Gleason stage increased so did the size of the lesion in both cancer stages.
 
 ```{r}
-# Correlation of Gleason stage -Lesion size colored by cancer stage
-gleason_and_tumor_by_stage<-prostate_data_augment|>
-  filter(!is.na(`Primary lesion size(cm^2)`))|>
-  filter(!is.na(`Gleason stage`))|>
-  ggplot(aes(x = `Gleason stage`,
-             y = `Primary lesion size(cm^2)`, 
-             color = as.factor(stage))) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(
-    x = "Gleason Stage",
-    y = "Lesion size",
-    title = "Lesion size vs Gleason Stage by Cancer Stage")+
-  scale_color_discrete(name = "Cancer Stage",labels = c("Stage 3", "Stage 4"))
-gleason_and_tumor_by_stage
+knitr::include_graphics("../results/gleason_vs_lesion.png")
 ```
 
 Finally, we expored a possible relationship between Serum prostatic acid phosphatase and Bone Metastases.What we found was that in patients with high risk, bone metastases was prevelant at low levels of the phosphatase.
 
 ```{r}
-# Relationship Between Prostate Acid Levels and Bone Metastases
-ap_bm_relationship <-prostate_data_augment|>
-  filter(!is.na(Risk))|>
-  ggplot(aes(x = ap, y = bm)) +
-  geom_point(aes(color = factor(bm)), size = 3) +
-  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
-  labs(x = "Prostate Acid Levels", y = "Bone Metastases", color = "Bone Metastases") +
-  scale_color_manual(values = c("blue", "red"), labels = c("No Metastases", "Metastases")) +
-  ggtitle("Relationship Between Prostate Acid Levels and Bone Metastases") +
-  theme_minimal()+
-  facet_wrap(~ Risk)
-
-ap_bm_relationship
+knitr::include_graphics("../results/ap_vs_bm.png")
 ```
 
 
