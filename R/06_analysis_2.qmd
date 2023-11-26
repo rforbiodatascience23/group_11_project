@@ -87,8 +87,7 @@ pca_fit |>
 
 ```{r}
 arrow_style <- arrow(
-  angle = 20, ends = "first", type = "closed", length = grid::unit(8, "pt")
-)
+  angle = 20, ends = "first", type = "closed", length = grid::unit(8, "pt"))
 
 # plot rotation matrix
 pca_fit %>%
@@ -104,8 +103,7 @@ pca_fit %>%
     aes(label = column),
     hjust = 1, 
     nudge_x = -0.02, 
-    color = "skyblue2"
-  ) +
+    color = "skyblue2") +
   xlim(-1.25, .5) +
   ylim(-.5, 1) +
   coord_fixed() 
