@@ -75,16 +75,16 @@ selected_cols <- c("age", "Primary lesion size(cm^2)", "History of CVD",
 selected_data <- prostate_data_augment[, selected_cols]
 
 # Convert long format
-melted_data <- selected_data |>
+data_long <- selected_data |>
   gather(variable, value)
 
 # Calculate means for each variable and group them and remove NAs
-mean_values <- melted_data %>%
+mean_values <- data_long %>%
   group_by(variable) %>%
   summarise(mean = mean(value, na.rm = TRUE))  
 
 # Plot boxplots for all variables with mean shown
-ggplot(melted_data, aes(x = variable, y = value, fill = variable)) +
+summary_statistics_boxplot<-ggplot(data_long, aes(x = variable, y = value, fill = variable)) +
   geom_boxplot() +
   geom_text(data = mean_values, aes(x = variable, y = mean, label = round(mean, 2)),
             vjust = -1, color = "black", size = 3) +  
@@ -94,7 +94,7 @@ ggplot(melted_data, aes(x = variable, y = value, fill = variable)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-ggsave('../results/all_boxplots.png', deaths_across_groups)
+ggsave('../results/all_boxplots.png', summary_statistics_boxplot)
 ```
 
 
