@@ -30,8 +30,7 @@ The raw data were: + loaded, + cleaned\
 knitr::include_graphics("figs/raw_dataset.png")
 ```
 
-<<<<<<< HEAD
-=======
+
 
 ## Principal Component Analysis (PCA)
 
@@ -61,4 +60,4 @@ knitr::include_graphics("../results/pca_arrows.png")
 :::
 :::
 
->>>>>>> 1e4f5bc9c4098d5388cc4b097901a2c983fd126a
+
