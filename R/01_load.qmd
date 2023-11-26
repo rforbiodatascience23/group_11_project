@@ -18,7 +18,7 @@ download.file(url, destination, method = "auto")
 #| label: Converting data from xlsx to tsv
 # NOTE: You open prostate.xls and save it again to xlsx
 prostate_data <- read_excel('../data/_raw/prostate.xlsx')
-prostate_data <- write_delim(prostate_data, file= '../data/_raw/prostate.tsv', delim = "\t", col_names = TRUE)
+prostate_data <- write_delim(prostate_data, file= '../data/_raw/prostate.tsv',                              delim = "\t", col_names = TRUE)
 ```
 
 ```{r}
