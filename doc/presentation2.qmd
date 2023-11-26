@@ -7,7 +7,7 @@ editor: visual
 ---
 
 ## Introduction {.centered}
-Prostate cancer, a prevalent and potentially lethal disease affecting men, necessitates a nuanced understanding to improve diagnostic precision and treatment efficacy. The intricate nature of this malignancy underscores the significance of employing data analysis techniques on patient results.Extracting meaningful patterns from comprehensive datasets not only enhances our comprehension of prostate cancer but also empowers healthcare professionals to tailor interventions Thus, our aim is to investigate correlations, trends, or predictive models related to prostate cancer and patient outcomes.
+Prostate cancer, a disease that significantly impacts the lives of men, requires a thoughtful exploration to refine diagnostic approaches and treatment regime Understanding the complexities of this condition is crucial, emphasizing the importance of applying advanced data analysis techniques to patient data. Extracting meaningful insights from extensive datasets not only deepens our understanding of prostate cancer but also equips healthcare professionals with valuable information to personalise patient-by-patient Our goal is to delve into the connections, patterns, and predictive models associated with prostate cancer and patient outcomes, ultimately enhancing our ability to provide more personalized and effective care for individuals facing this challenging diagnosis.
 ```{r}
 library(knitr)
 ```
@@ -90,22 +90,22 @@ knitr::include_graphics("../results/glm_02.png")
 ## Results: Principal Component Analysis (PCA)
 
 <font size="5"> There were 3 main steps to this PCA, outlined below:
-Looking at the data in PC coordinates.
-Looking at the rotation matrix.
-Looking at the variance explained by each PC.
+1. Looking at the data in PC coordinates.
+2. Looking at the rotation matrix.
+3. Looking at the variance explained by each PC.
 
 
 ::: columns
-::: {.column width="25%"}
+::: {.column width="50%"}
 ```{r}
 #| out.width = '100%',
 #| fig.align = 'left'
-knitr::include_graphics("../results/pca1.png")
+knitr::include_graphics("../results/pca_01.png")
 
 ```
 :::
 
-::: {.column width="25%"}
+::: {.column width="50%"}
 ```{r}
 #| out.width = '100%',
 #| fig.align = 'right'
