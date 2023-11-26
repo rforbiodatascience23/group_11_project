@@ -107,7 +107,7 @@ knitr::include_graphics("../results/gleason_vs_lesion.png")
 
 ## Results: Logistic regression modelling
 
-`small>`{=html}The objective is to predict *dosage* based on the bone metastasis(*bm)*, *weight* i*ndex, primary lesion size* and a*ge adjusted haemoglobin* for patients with 3 and 4 prostate cancer stage respectivelly. The coefficients of the above predictors are showed below as well as their significance as indicated by their p.values. </small>
+<small>The objective is to predict *dosage* based on the bone metastasis(*bm)*, *weight* i*ndex, primary lesion size* and a*ge adjusted haemoglobin* for patients with 3 and 4 prostate cancer stage respectivelly. The coefficients of the above predictors are showed below as well as their significance as indicated by their p.values. </small>
 
 ::: columns
 ::: {.column width="50%"}
