@@ -25,6 +25,26 @@ For instance we separate "rx" into three columns; "Treatment regime", "mg" and "
 knitr::include_graphics("figs/raw_dataset.png")
 ```
 
+### Results
+
+## Data exploration
+
+Analyzing the dataset reveals that the proportion of missing values, NA, maintains below 2.5% of the overall dataset across most features. In respect to the entire dataset size, this amount of missingness looks small. The "Cause of Death" feature is an exception, with NA entries accounting for around 29.5% of the total data. However, this particular occurrence does not pose a concern due to the contextual correlation with the "status" feature. In this dataset, an NA value in the "Cause of Death" feature signifies that the corresponding patient is alive, as per the interpretation of the "status" feature.
+```{r}
+knitr::include_graphics("../results/na_percentage.png")
+```
+
+Across various age groups, a notable trend emerges in the causes of death among patients affected by prostate cancer and cardiovascular diseases. Specifically, a significant majority of individuals who succumbed to prostate cancer or cardiovascular diseases were under the age of 75. Those above 80 had the lowest deaths across all recorded causes.
+
+```{r}
+knitr::include_graphics("../results/causes_across_groups.png")
+```
+```{r}
+knitr::include_graphics("../results/dsp_sbp_causeofdeath.png")
+```
+
+
+
 <<<<<<< HEAD
 =======
 
