@@ -361,7 +361,8 @@ library(&quot;dplyr&quot;)
 library(&quot;stringr&quot;) #count the number of occurrences of a given character in a string
 
 library(&quot;readr&quot;)</code></pre>
-<pre class="r"><code>prostate_data &lt;- read_delim(file = &quot;../data/01_dat_load.tsv&quot;, show_col_types = FALSE)</code></pre>
+<pre class="r"><code>prostate_data &lt;- read_delim(file = &quot;../data/01_dat_load.tsv&quot;, 
+                            show_col_types = FALSE)</code></pre>
 <pre class="r"><code>prostate_data_clean &lt;- prostate_data |&gt;
   separate(&quot;rx&quot;, into = c(&quot;Treatment regime&quot;, &quot;mg&quot;,&quot;Drug&quot;), sep =&quot; &quot;) |&gt;
   select(-c(&quot;mg&quot;))
@@ -390,8 +391,7 @@ prostate_data_clean &lt;- prostate_data_clean |&gt;
   mutate(`Status` = replace_na(`Status`,0))</code></pre>
 <pre class="r"><code>prostate_data_clean &lt;- prostate_data_clean |&gt;
   mutate(`pf` = if_else(
-    `pf` == &quot;normal activity&quot;, 0,
-    1))</code></pre>
+    `pf` == &quot;normal activity&quot;, 0,1))</code></pre>
 <pre class="r"><code>prostate_data_clean &lt;- prostate_data_clean |&gt;
   rename(`Activity Level` = pf,
          `Patient number` = `patno`,

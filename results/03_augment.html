@@ -362,8 +362,7 @@ library(&quot;readr&quot;)</code></pre>
 prostate_data_augment&lt;-prostate_data_clean|&gt;
   mutate(`Dosage`=case_when(
   0&lt;=`Treatment regime` &amp; `Treatment regime`&lt;=0.2 ~ &quot;Low&quot;,
-  1&lt;=`Treatment regime` &amp; `Treatment regime`&lt;=5 ~ &quot;High&quot;
-  )) |&gt;
+  1&lt;=`Treatment regime` &amp; `Treatment regime`&lt;=5 ~ &quot;High&quot;)) |&gt;
     relocate(`Dosage`, .after = `Drug` )
 
 prostate_data_augment&lt;-prostate_data_augment|&gt;
@@ -373,16 +372,14 @@ prostate_data_augment&lt;-prostate_data_augment|&gt;
   5&lt;`Gleason stage` &amp;
     `Gleason stage`&lt;=10 ~ &quot;High&quot;,
   10&lt;`Gleason stage` &amp;
-    `Gleason stage`&lt;=15 ~ &quot;Very high&quot;,
-  ))
+    `Gleason stage`&lt;=15 ~ &quot;Very high&quot;,))
 
 # Convert age to intervals
 prostate_data_augment&lt;-prostate_data_augment|&gt;
   mutate(`Age group`=case_when(
   `age`&lt;75 ~ 0,
   75&lt;=`age` &amp; `age`&lt;=80 ~ 1,
-  80&lt;=`age` ~ 2
-  ))</code></pre>
+  80&lt;=`age` ~ 2))</code></pre>
 <pre class="r"><code>mean_haemoglobin_by_age &lt;- prostate_data_augment |&gt;
   group_by(`Age group`) |&gt;
   filter(!is.na(`Age group`))|&gt;

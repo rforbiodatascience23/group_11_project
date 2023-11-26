@@ -362,7 +362,7 @@ destination &lt;- &quot;../data/_raw/prostate.xlsx&quot;
 download.file(url, destination, method = &quot;auto&quot;)</code></pre>
 <pre class="r"><code># NOTE: You open prostate.xls and save it again to xlsx
 prostate_data &lt;- read_excel(&#39;../data/_raw/prostate.xlsx&#39;)
-prostate_data &lt;- write_delim(prostate_data, file= &#39;../data/_raw/prostate.tsv&#39;, delim = &quot;\t&quot;, col_names = TRUE)</code></pre>
+prostate_data &lt;- write_delim(prostate_data, file= &#39;../data/_raw/prostate.tsv&#39;,      delim = &quot;\t&quot;, col_names = TRUE)</code></pre>
 <pre class="r"><code>#|label: Saving data
 
 output_file_path &lt;- &quot;../data/01_dat_load.tsv&quot;
