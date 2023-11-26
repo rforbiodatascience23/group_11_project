@@ -33,7 +33,7 @@ knitr::include_graphics("figs/raw_dataset.png")
 ## Data exploration
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="40%"}
 ```{r}
 #| out.width = '100%',
 #| fig.align = 'left'
@@ -42,7 +42,7 @@ knitr::include_graphics("../results/na_percentage.png")
 ```
 :::
 
-::: {.column width="30%"}
+::: {.column width="35%"}
 ```{r}
 #| out.width = '100%',
 #| fig.align = 'right'
@@ -51,7 +51,7 @@ knitr::include_graphics("../results/all_boxplots.png")
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="34%"}
 ```{r}
 #| out.width = '100%',
 #| fig.align = 'left'
@@ -60,10 +60,10 @@ knitr::include_graphics("../results/causes_across_groups.png")
 ```
 :::
 
-::: {.column width="35%"}
+::: {.column width="34%"}
 ```{r}
 #| out.width = '100%',
-#| fig.align = 'left'
+#| fig.align = 'right'
 knitr::include_graphics("../results/wt_age_across_cancers.png")
 
 ```
@@ -75,7 +75,7 @@ knitr::include_graphics("../results/wt_age_across_cancers.png")
 ## Data exploration
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="40%"}
 ```{r}
 #| out.width = '100%',
 #| fig.align = 'left'
@@ -84,7 +84,7 @@ knitr::include_graphics("../results/dsp_sbp_causeofdeath.png")
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="40%"}
 ```{r}
 #| out.width = '100%',
 #| fig.align = 'right'
