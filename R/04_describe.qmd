@@ -16,7 +16,7 @@ prostate_data_augment<-read_delim("../data/03_dat_aug.tsv")
 
 ##Data exploration
 
-``` {r}
+```{r}
 #| label: Number of rows 
 rows_count <- nrow(prostate_data_augment)
 rows_count 
@@ -92,7 +92,6 @@ mean_statistics
 
 ```
 
-
 ```{r}
 #| label: Age distribution plot
 #| warning: false
@@ -144,8 +143,6 @@ weight_age_across_cancers
 #Save
 ggsave('../results/wt_age_across_cancers.png', weight_age_across_cancers)
 ```
-
-
 
 ```{r}
 #| label: Boxplot of size of the tumor in each stage
@@ -205,26 +202,6 @@ gleason_and_lesion_by_stage
 ggsave('../results/gleason_vs_lesion.png',gleason_and_lesion_by_stage)
 ```
 
-
-```{r}
-#| label: Relationship Between Prostate Acid Levels and Bone Metastases
-ap_bm_relationship <-prostate_data_augment|>
-  filter(!is.na(Risk))|>
-  ggplot(aes(x = ap, y = bm)) +
-  geom_point(aes(color = factor(bm)), size = 3) +
-  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
-  labs(x = "Prostate Acid Levels", y = "Bone Metastases", color = "Bone Metastases") +
-  scale_color_manual(values = c("blue", "red"), labels = c("No Metastases", "Metastases")) +
-  ggtitle("Relationship Between Prostate Acid Levels and Bone Metastases") +
-  theme_minimal()+
-  facet_wrap(~ Risk)
-
-ap_bm_relationship
-
-#Save
-ggsave('../results/ap_vs_bm.png',ap_bm_relationship)
-```
-
 ```{r}
 #| label: Plots by Cause of Death
 
@@ -267,6 +244,9 @@ plot(windex_sbp_causeofdeath)
 
 ggsave('../results/weightindex_sbp_causeofdeath.png', windex_sbp_causeofdeath)
 
+```
+
+```{r}
 dsp_sbp_causeofdeath <-prostate_data_augment|>
   filter(`Cause of Death` != 9 & `Cause of Death` != 8 & `Cause of Death` != 7 & `Cause of Death` != 5)|>
   ggplot(aes(x = `Diastolic blood pressure`, 
@@ -353,6 +333,3 @@ plot(windex_actlevel)
 ggsave('../results/windex_actlevel.png', windex_actlevel)
 
 ```
-
-
-
