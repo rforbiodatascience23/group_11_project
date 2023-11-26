@@ -29,3 +29,4 @@ The raw data were: + loaded, + cleaned\
 #| fig.align = 'center'
 knitr::include_graphics("figs/raw_dataset.png")
 ```
+
