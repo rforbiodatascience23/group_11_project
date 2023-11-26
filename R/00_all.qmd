@@ -33,6 +33,8 @@ createOrCheckDirectory("../doc")
 ```
 
 ```{r}
+rmarkdown::render("00_all.qmd", output_dir = "../results/")
+
 rmarkdown::render("01_load.qmd", output_dir = "../results/")
 
 rmarkdown::render("02_clean.qmd", output_dir = "../results/")
