@@ -63,17 +63,40 @@ data_summary <- data.frame(unclass(summary(prostate_data_augment)),
 data_summary
 ```
 
+
 ```{r}
-#| label: Distribution of Age based on stage
-age_status_summary <- prostate_data_augment |>
-  group_by(stage) |>
-  filter(!is.na(age))|>
-  summarise(mean_age = mean(age),
-            median_age = median(age),
-            min_age = min(age),
-            max_age = max(age))
-age_status_summary
+#| label: Summary statistics in boxplot
+#First we pick columns that we want
+selected_cols <- c("age", "Primary lesion size(cm^2)", "History of CVD",
+                   "Status", "Gleason stage","Activity Level", 
+                   "Treatment regime", "Drug", "Weight index",
+                   "Serum haemoglobin level")
+#subset
+selected_data <- prostate_data_augment[, selected_cols]
+
+# Convert long format
+melted_data <- selected_data |>
+  gather(variable, value)
+
+# Calculate means for each variable and group them and remove NAs
+mean_values <- melted_data %>%
+  group_by(variable) %>%
+  summarise(mean = mean(value, na.rm = TRUE))  
+
+# Plot boxplots for all variables with mean shown
+ggplot(melted_data, aes(x = variable, y = value, fill = variable)) +
+  geom_boxplot() +
+  geom_text(data = mean_values, aes(x = variable, y = mean, label = round(mean, 2)),
+            vjust = -1, color = "black", size = 3) +  
+  labs(title = "Boxplot of Selected Variables with Mean Annotations",
+       x = "Features",
+       y = "Values") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggsave('../results/all_boxplots.png', deaths_across_groups)
 ```
+
 
 ```{r}
 #| label: Mean statistics
@@ -92,21 +115,6 @@ mean_statistics
 
 ```
 
-```{r}
-#| label: Age distribution plot
-#| warning: false
-#age_distribution 
-age_distribution <-ggplot(prostate_data_augment,aes(x = age,fill = as.factor(stage))) +
-  geom_density(alpha=0.3) +
-  labs(title = "Distribution of Age based on Cancer Stage",
-       x = "Age",
-       y = "Density",
-       fill = "Status") +
-  scale_fill_manual(values = c("blue", "red"), name = NULL, labels = c("Stage 3", "Stage 4")) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-plot(age_distribution)
-```
 
 ```{r}
 #| label: Cause of death across Age groups
@@ -144,20 +152,6 @@ weight_age_across_cancers
 ggsave('../results/wt_age_across_cancers.png', weight_age_across_cancers)
 ```
 
-```{r}
-#| label: Boxplot of size of the tumor in each stage
-lesion_on_stage_plot<-prostate_data_augment|>
-  filter(!is.na(`Primary lesion size(cm^2)`)) |>
-  ggplot(aes(x = factor(`stage` ), y = `Primary lesion size(cm^2)`)) +
-  geom_boxplot() +
-  labs(
-    x = "Cancer Stage",
-    y = "Lesion size",
-    title = "Boxplot of Primary Lesion Size by Cancer Stage"
-  ) +
-  scale_x_discrete(labels = c("Stage 3", "Stage 4"))
-lesion_on_stage_plot
-```
 
 ```{r}
 #| label: Lesion size and haemoglobin correlation on each stage colored by Risk
