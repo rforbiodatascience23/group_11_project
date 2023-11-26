@@ -6,23 +6,18 @@ format:
 ---
 
 ## Introduction {.centered}
-
+Prostate cancer, a prevalent and potentially lethal disease affecting men, necessitates a nuanced understanding to improve diagnostic precision and treatment efficacy. The intricate nature of this malignancy underscores the significance of employing data analysis techniques on patient results.Extracting meaningful patterns from comprehensive datasets not only enhances our comprehension of prostate cancer but also empowers healthcare professionals to tailor interventions Thus, our aim is to investigate correlations, trends, or predictive models related to prostate cancer and patient outcomes.
 ```{r}
 library(knitr)
 ```
 
-Our analysis exploits data from a randomised clinical trial by Byar & Greene that compares treatment of patients with prostate cancer in stages 3 and 4. Treatment consisted of different doses of diethylstilbestrol (DES). Our aim is to investigate correlations, trends, or predictive models related to prostate cancer and patient outcomes. Data are publicly available in : https://hbiostat.org/data/repo/prostate.xls
+## Materials and Methods
 
-## Description
-
+Our analysis exploits data from a randomised clinical trial by Byar & Greene that compares treatment of patients with prostate cancer in stages 3 and 4. Treatment consisted of different doses of diethylstilbestrol (DES). Data are publicly available in : https://hbiostat.org/data/repo/prostate.xls
 The initial dataset contains information related to 502 observations of patients with prostate cancer across 18 variables. These variables encompass diverse information including patient demographics, medical history, treatment received, and health status.
-
-The raw data were: + loaded, + cleaned\
+The raw data were loaded 
 + augmented + described + modelled. and the process of arriving at results is done in a reproducible manner.
-
-## Tidy data
-
--   For instance we separate "rx" into three columns; "Treatment regime", "mg" and "Drug"
+For instance we separate "rx" into three columns; "Treatment regime", "mg" and "Drug"
 
 ```{r}
 #| out.width = '50%',
