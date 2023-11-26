@@ -31,18 +31,3 @@ createOrCheckDirectory("../data/_raw")
 createOrCheckDirectory("../results")
 createOrCheckDirectory("../doc")
 ```
-
-```{r}
-rmarkdown::render("01_load.qmd", output_dir = "../results/")
-
-rmarkdown::render("02_clean.qmd", output_dir = "../results/")
-
-rmarkdown::render("03_augment.qmd", output_dir = "../results/")
-
-rmarkdown::render("04_describe.qmd", output_dir = "../results/")
-
-rmarkdown::render("05_analysis_1.qmd", output_dir = "../results/")
-
-rmarkdown::render("06_analysis_2.qmd", output_dir = "../results/")
-
-```
