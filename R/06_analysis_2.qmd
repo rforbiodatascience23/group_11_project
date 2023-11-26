@@ -56,7 +56,7 @@ pca_fit|>
   ggplot(aes(.fittedPC1, .fittedPC2, color = `stage`)) + 
   geom_point(size = 1.5)
 
-ggsave('../results/pca_01.png', pca_fit)
+ggsave(filename = '../results/pca1.png')
 ```
 
 ```{r}
@@ -65,7 +65,7 @@ pca_fit |>
   ggplot(aes(.fittedPC1, .fittedPC2, color = `Primary lesion size(cm^2)`)) + 
   geom_point(size = 1.5)
 
-ggsave(filename = '../results/pca1.png')
+ggsave(filename = '../results/pca2.png')
 ```
 
 ```{r}
