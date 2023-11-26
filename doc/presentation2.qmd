@@ -3,46 +3,135 @@ title: "Group 11: Analysis of Prostate Cancer Data"
 format:
   revealjs:
     embed-resources: true
+editor: visual
 ---
 
 ## Introduction {.centered}
 
+<small>Prostate cancer, a disease that significantly impacts the lives of men, requires a thoughtful exploration to refine diagnostic approaches and treatment regime. Understanding the complexities of this condition is crucial, emphasizing the importance of applying advanced data analysis techniques to patient data. Extracting meaningful insights from extensive data sets not only deepens our understanding of prostate cancer but also equips healthcare professionals with valuable information to personalize patient-by-patient Our goal is to delve into the connections, patterns, and predictive models associated with prostate cancer and patient outcomes, ultimately enhancing our ability to provide more personalized and effective care for individuals facing this issue.</small>
+
 ```{r}
 library(knitr)
+
 ```
 
-Our analysis exploits data from a randomised clinical trial by Byar & Greene that compares treatment of patients with prostate cancer in stages 3 and 4. Treatment consisted of different doses of diethylstilbestrol (DES). Our aim is to investigate correlations, trends, or predictive models related to prostate cancer and patient outcomes. Data are publicly available in : https://hbiostat.org/data/repo/prostate.xls
+------------------------------------------------------------------------
 
-## Description
+## Materials and Methods
 
-The initial dataset contains information related to 502 observations of patients with prostate cancer across 18 variables. These variables encompass diverse information including patient demographics, medical history, treatment received, and health status.
-
-The raw data were: + loaded, + cleaned\
-+ augmented + described + modelled. and the process of arriving at results is done in a reproducible manner.
-
-## Tidy data
-
--   For instance we separate "rx" into three columns; "Treatment regime", "mg" and "Drug"
+<small>We rigorously revised columns for clarity and consistency, changing text into numerical values for better analysis, when preparing the data for study. Replacing or removing missing values resulted in a more complete dataset. Splitting columns to keep single-value cells was also important. These procedures were designed to optimize the data, paving the way for more accurate and efficient analysis, resulting in sharper insights and informed decision-making.</small>
 
 ```{r}
 #| out.width = '50%',
 #| fig.align = 'center'
 knitr::include_graphics("figs/raw_dataset.png")
+
 ```
 
-<<<<<<< HEAD
-=======
+------------------------------------------------------------------------
 
->>>>>>> 3e0a9498d4c11baacfbf80f0056713d33b62e1d7
+## Data exploration
 
-## Principal Component Analysis (PCA)
+::: columns
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/na_percentage.png")
 
-<font size="5"> There were 3 main steps to this PCA, outlined below:
-Looking at the data in PC coordinates.
-Looking at the rotation matrix.
-Looking at the variance explained by each PC.
+```
+:::
 
-Here, the data in PC coordinates is plotted 
+::: {.column width="30%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/all_boxplots.png")
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/causes_across_groups.png")
+
+```
+:::
+
+::: {.column width="35%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/wt_age_across_cancers.png")
+
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Data exploration
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/dsp_sbp_causeofdeath.png")
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/dsp_sbp_historycvd.png")
+
+```
+:::
+
+::: {.column width="40%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/gleason_vs_lesion.png")
+
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Results: Logistic regression modelling
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/glm_01.png")
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/glm_02.png")
+
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Results: Principal Component Analysis (PCA)
+
+<small>For Principal Component Analysis (PCA), three primary steps were undertaken. Initially, the data was examined in PC coordinates, followed by an analysis of the rotation matrix. Finally, emphasis was placed on understanding the variance explained by each Principal Component </small>
 
 ::: columns
 ::: {.column width="50%"}
@@ -59,8 +148,20 @@ knitr::include_graphics("../results/pca1.png")
 #| out.width = '100%',
 #| fig.align = 'right'
 knitr::include_graphics("../results/pca_arrows.png")
+
 ```
 :::
 :::
 
+------------------------------------------------------------------------
 
+## Discussion
+
+<small>The PCA analysis is used to look for groupings and patterns of the data based on all the appropriate variables PCA analysis did not work particularly well for this data, since just over 25% of the total variance is captured by the first principal component (PC1) , which is pretty low. Some data sets inherently require multiple principal components to represent different aspects of the variability, as is the case here.</small>
+
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/pca1_bars.png")
+
+```
