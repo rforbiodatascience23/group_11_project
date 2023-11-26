@@ -142,9 +142,3 @@ knitr::include_graphics("../results/pca_arrows.png")
 :::
 
 
-
-
-
-
-
-
