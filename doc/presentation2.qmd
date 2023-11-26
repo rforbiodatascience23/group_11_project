@@ -3,6 +3,7 @@ title: "Group 11: Analysis of Prostate Cancer Data"
 format:
   revealjs:
     embed-resources: true
+editor: visual
 ---
 
 ## Introduction {.centered}
@@ -10,7 +11,8 @@ Prostate cancer, a prevalent and potentially lethal disease affecting men, neces
 ```{r}
 library(knitr)
 ```
-
+---
+---
 ## Materials and Methods
 
 Our analysis exploits data from a randomised clinical trial by Byar & Greene that compares treatment of patients with prostate cancer in stages 3 and 4. Treatment consisted of different doses of diethylstilbestrol (DES). Data are publicly available in : https://hbiostat.org/data/repo/prostate.xls
@@ -24,47 +26,16 @@ For instance we separate "rx" into three columns; "Treatment regime", "mg" and "
 #| fig.align = 'center'
 knitr::include_graphics("figs/raw_dataset.png")
 ```
-
-### Results
-
+---
+---
 ## Data exploration
-
-Analyzing the dataset reveals that the proportion of missing values, NA, maintains below 2.5% of the overall dataset across most features. In respect to the entire dataset size, this amount of missingness looks small. The "Cause of Death" feature is an exception, with NA entries accounting for around 29.5% of the total data. However, this particular occurrence does not pose a concern due to the contextual correlation with the "status" feature. In this dataset, an NA value in the "Cause of Death" feature signifies that the corresponding patient is alive, as per the interpretation of the "status" feature.
-```{r}
-knitr::include_graphics("../results/na_percentage.png")
-```
-
-Across various age groups, a notable trend emerges in the causes of death among patients affected by prostate cancer and cardiovascular diseases. Specifically, a significant majority of individuals who succumbed to prostate cancer or cardiovascular diseases were under the age of 75. Those above 80 had the lowest deaths across all recorded causes.
-
-```{r}
-knitr::include_graphics("../results/causes_across_groups.png")
-```
-```{r}
-knitr::include_graphics("../results/dsp_sbp_causeofdeath.png")
-```
-
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 3e0a9498d4c11baacfbf80f0056713d33b62e1d7
-
-## Principal Component Analysis (PCA)
-
-<font size="5"> There were 3 main steps to this PCA, outlined below:
-Looking at the data in PC coordinates.
-Looking at the rotation matrix.
-Looking at the variance explained by each PC.
-
-Here, the data in PC coordinates is plotted 
 
 ::: columns
 ::: {.column width="50%"}
 ```{r}
 #| out.width = '100%',
 #| fig.align = 'left'
-knitr::include_graphics("../results/pca1.png")
+knitr::include_graphics("../results/na_percentage.png")
 
 ```
 :::
@@ -73,9 +44,82 @@ knitr::include_graphics("../results/pca1.png")
 ```{r}
 #| out.width = '100%',
 #| fig.align = 'right'
+knitr::include_graphics("../results/causes_across_groups.png")
+```
+:::
+:::
+---
+---
+## Data exploration
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/dsp_sbp_causeofdeath.png")
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/dsp_sbp_historycvd.png")
+```
+:::
+:::
+
+---
+---
+
+## Results: Logistic regression modelling
+
+```{r, out.width='25%', fig.align='left'}
+knitr::include_graphics("../results/glm_01.png")
+```
+
+```{r, out.width='25%', fig.align='right'}
+knitr::include_graphics("../results/glm_02.png")
+```
+
+---
+---
+
+## Results: Principal Component Analysis (PCA)
+
+<font size="5"> There were 3 main steps to this PCA, outlined below:
+Looking at the data in PC coordinates.
+Looking at the rotation matrix.
+Looking at the variance explained by each PC.
+
+
+::: columns
+::: {.column width="25%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/pca1.png")
+
+```
+:::
+
+::: {.column width="25%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
 knitr::include_graphics("../results/pca_arrows.png")
 ```
 :::
 :::
 
+---
+---
 
+# Discussion
+
+
+
+
+---
