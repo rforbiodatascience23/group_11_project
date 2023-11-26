@@ -19,8 +19,7 @@ prostate_data <- read_delim(file = "../data/02_dat_clean.tsv", show_col_types = 
 prostate_data_augment<-prostate_data_clean|>
   mutate(`Dosage`=case_when(
   0<=`Treatment regime` & `Treatment regime`<=0.2 ~ "Low",
-  1<=`Treatment regime` & `Treatment regime`<=5 ~ "High"
-  )) |>
+  1<=`Treatment regime` & `Treatment regime`<=5 ~ "High")) |>
     relocate(`Dosage`, .after = `Drug` )
 
 prostate_data_augment<-prostate_data_augment|>
@@ -30,16 +29,14 @@ prostate_data_augment<-prostate_data_augment|>
   5<`Gleason stage` &
     `Gleason stage`<=10 ~ "High",
   10<`Gleason stage` &
-    `Gleason stage`<=15 ~ "Very high",
-  ))
+    `Gleason stage`<=15 ~ "Very high",))
 
 # Convert age to intervals
 prostate_data_augment<-prostate_data_augment|>
   mutate(`Age group`=case_when(
   `age`<75 ~ 0,
   75<=`age` & `age`<=80 ~ 1,
-  80<=`age` ~ 2
-  ))
+  80<=`age` ~ 2))
 ```
 
 ```{r}
