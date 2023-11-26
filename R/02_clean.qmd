@@ -15,7 +15,8 @@ library("readr")
 
 ```{r}
 #| label: Loading data
-prostate_data <- read_delim(file = "../data/01_dat_load.tsv", show_col_types = FALSE)
+prostate_data <- read_delim(file = "../data/01_dat_load.tsv", 
+                            show_col_types = FALSE)
 ```
 
 ```{r}
@@ -64,8 +65,7 @@ prostate_data_clean <- prostate_data_clean |>
 
 prostate_data_clean <- prostate_data_clean |>
   mutate(`pf` = if_else(
-    `pf` == "normal activity", 0,
-    1))
+    `pf` == "normal activity", 0,1))
   
 ```
 
