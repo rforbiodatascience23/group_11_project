@@ -197,10 +197,13 @@ knitr::include_graphics("../results/pca1_bars.png")
 
 *Predictors of Dosage for each Cancer Stage*
 
--   In our Logistic Regression model, we encountered several predictors that did not exhibit significant influence on the dosage prediction per cancer stage.
+<small>
 
--   Although valuable insights could be gained from a more explorative analysis using different model and predictors, we prioritized to mainly focus on the scopes of the course.
+- In our Logistic Regression model, we encountered several predictors that did not exhibit significant influence on the dosage prediction per cancer stage.
 
+- Although valuable insights could be gained from a more explorative analysis using different model and predictors, we prioritized to mainly focus on the scopes of the course.
+
+</small>
 ------------------------------------------------------------------------
 
 ## Conclusion
