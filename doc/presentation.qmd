@@ -204,6 +204,7 @@ knitr::include_graphics("../results/pca1_bars.png")
 - Although valuable insights could be gained from a more explorative analysis using different model and predictors, we prioritized to mainly focus on the scopes of the course.
 
 </small>
+
 ------------------------------------------------------------------------
 
 ## Conclusion
