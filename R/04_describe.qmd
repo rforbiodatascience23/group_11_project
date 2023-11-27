@@ -173,7 +173,7 @@ ggsave('../results/causes_across_groups.png', deaths_across_groups)
 #| label: Association of weight index and age across all types of cancer colored by Risk
 
 weight_age_across_cancers<-prostate_data_augment|> 
-  filter(!is.na(`Cause of Death`))|>
+   filter(`Cause of Death` != "9")|>
   filter(!is.na(Risk))|>
   ggplot(aes(x = age,
              y = `Weight index`, 
@@ -187,8 +187,10 @@ weight_age_across_cancers<-prostate_data_augment|>
       "1" = "heart or vascular",
       "2" = "cerebrovascular",
       "4" = "respiratory disease",
-      "6" = "pulmonary embolus"
-    ))
+      "6" = "pulmonary embolus",
+      "5" = "other specific non", 
+      "7" = "unspecified non", 
+      "8" = "unknown cause"))
   ) +
   labs(
     x = "Age",
