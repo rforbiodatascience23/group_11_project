@@ -199,9 +199,9 @@ knitr::include_graphics("../results/pca1_bars.png")
 
 <small>
 
-- In our Logistic Regression model, we encountered several predictors that did not exhibit significant influence on the dosage prediction per cancer stage.
+-   In our Logistic Regression model, we encountered several predictors that did not exhibit significant influence on the dosage prediction per cancer stage.
 
-- Although valuable insights could be gained from a more explorative analysis using different model and predictors, we prioritized to mainly focus on the scopes of the course.
+-   Although valuable insights could be gained from a more explorative analysis using different model and predictors, we prioritized to mainly focus on the scopes of the course.
 
 </small>
 
@@ -213,10 +213,12 @@ knitr::include_graphics("../results/pca1_bars.png")
 
 -   Patients with a low Weight Index, defined as Weight in kilograms - Height in centimeters + 200, were significantly more likely to die, especially those over the age of 70. This increased risk was prevalent across all causes of mortality. Patients at all reported ages were consistently identified as being at high risk for prostate cancer.
 
--   As the Gleason stage is increased so is the lesion size
+-   As the Gleason stage is increased so is the lesion size.
 
--   PCA is a powerful tool for dimensionality reduction and identifying patterns, but in our case the model did not show particularly obvious clustering
+-   PCA is a powerful tool for dimensionality reduction and identifying patterns, but in our case the model did not show particularly obvious clustering.
 
 -   The logistic regression model struggled to accurately predict dosage using 'bm,' 'weight index,' 'primary lesion size,' and 'age-adjusted hemoglobin,' for patients with stage 3 and 4 cancer revealing limitations in capturing their impact on patient outcomes.
+
+- Further exploration of the data: developing a model to predict optimal treatment.
 
 </small>

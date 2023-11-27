@@ -140,6 +140,7 @@ mean_statistics
 #| label: Cause of death across Age groups
 deaths_across_groups<-prostate_data_augment |>
   filter(!is.na(`Cause of Death`)) |>
+  filter(!is.na(`Age group`)) |>
   ggplot(aes(x = `Cause of Death`,
              fill = as.factor(`Age group`))) +
   geom_bar(position = "dodge") +
