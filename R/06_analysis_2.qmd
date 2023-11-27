@@ -6,7 +6,13 @@ editor: visual
 
 ```{r}
 library(broom)
+```
 
+```{r}
+#| label: Loading the cleaned data 
+#| message: false
+
+prostate_data_augment<-read_delim("../data/03_dat_aug.tsv")
 ```
 
 ```{r}
@@ -61,8 +67,13 @@ pca_fit|>
   augment(prostate_data_augment)|> # add original dataset back in
   ggplot(aes(.fittedPC1,
              .fittedPC2, 
-             color = `stage`)) + 
-  geom_point(size = 1.5)
+             color = stage)) + 
+  geom_point(size = 1.5) +
+  theme_minimal() +
+    ggtitle("PCA analysis coloured by Stage") +
+  labs(x = "Fitted Principal component 1",
+       y = "Fitted Principal component 2" )
+
 
 ggsave(filename = '../results/pca1.png')
 ```
@@ -73,7 +84,11 @@ pca_fit |>
   ggplot(aes(.fittedPC1, 
              .fittedPC2,
              color = `Primary lesion size(cm^2)`)) + 
-  geom_point(size = 1.5)
+  geom_point(size = 1.5) +
+  theme_minimal() +
+    ggtitle("PCA analysis coloured by Primary Lesion size")+
+  labs(x = "Fitted Principal component 1",
+       y = "Fitted Principal component 2" )
 
 ggsave(filename = '../results/pca2.png')
 ```
@@ -106,7 +121,10 @@ pca_fit %>%
     color = "skyblue2") +
   xlim(-1.25, .5) +
   ylim(-.5, 1) +
-  coord_fixed() 
+  coord_fixed() +
+  ggtitle("PCA Loading Plot")+
+  labs(x = "Fitted Principal component 1",
+       y = "Fitted Principal component 2" )
 
 ggsave(filename = '../results/pca_arrows.png')
 ```
@@ -124,7 +142,10 @@ pca_fit %>%
   scale_y_continuous(
     labels = scales::percent_format(),
     expand = expansion(mult = c(0, 0.01))
-  ) 
+  )  +
+  labs(title = "Variance explained by each principal component",
+       x = "Principal component", 
+       y = "% Variance")
 
 ggsave(filename = '../results/pca1_bars.png')
 ```

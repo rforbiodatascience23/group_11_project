@@ -2,7 +2,6 @@
 #| label: Loading packages
 library(tidyverse)
 library(readr)
-library(vroom)
 library(readxl)
 ```
 
@@ -11,19 +10,24 @@ library(readxl)
 url <- "https://github.com/Alex131313131313/DATA/raw/main/prostate.xlsx"
 destination <- "../data/_raw/prostate.xlsx"
 
-download.file(url, destination, method = "auto")
+download.file(url, 
+              destination, 
+              method = "auto")
 ```
 
 ```{r}
 #| label: Converting data from xlsx to tsv
 # NOTE: You open prostate.xls and save it again to xlsx
 prostate_data <- read_excel('../data/_raw/prostate.xlsx')
-prostate_data <- write_delim(prostate_data, file= '../data/_raw/prostate.tsv',      delim = "\t", col_names = TRUE)
+prostate_data <- write_delim(prostate_data, 
+                             file= '../data/_raw/prostate.tsv',      
+                             delim = "\t", col_names = TRUE)
 ```
 
 ```{r}
 #|label: Saving data
 
 output_file_path <- "../data/01_dat_load.tsv"
-write_delim( prostate_data, file = output_file_path )
+write_delim( prostate_data,
+             file = output_file_path )
 ```

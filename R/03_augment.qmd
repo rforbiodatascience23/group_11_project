@@ -18,9 +18,12 @@ prostate_data <- read_delim(file = "../data/02_dat_clean.tsv", show_col_types = 
 #Introduce new column "dosage" that contains low and high based on amount of drug used
 prostate_data_augment<-prostate_data_clean|>
   mutate(`Dosage`=case_when(
-  0<=`Treatment regime` & `Treatment regime`<=0.2 ~ "Low",
-  1<=`Treatment regime` & `Treatment regime`<=5 ~ "High")) |>
-    relocate(`Dosage`, .after = `Drug` )
+  0<=`Treatment regime` &
+    `Treatment regime`<=0.2 ~ "Low",
+  1<=`Treatment regime` &
+    `Treatment regime`<=5 ~ "High")) |>
+    relocate(`Dosage`,
+             .after = `Drug` )
 
 prostate_data_augment<-prostate_data_augment|>
   mutate(`Risk`=case_when(
@@ -35,7 +38,8 @@ prostate_data_augment<-prostate_data_augment|>
 prostate_data_augment<-prostate_data_augment|>
   mutate(`Age group`=case_when(
   `age`<75 ~ 0,
-  75<=`age` & `age`<=80 ~ 1,
+  75<=`age` &
+    `age`<=80 ~ 1,
   80<=`age` ~ 2))
 ```
 
@@ -44,11 +48,13 @@ prostate_data_augment<-prostate_data_augment|>
 mean_haemoglobin_by_age <- prostate_data_augment |>
   group_by(`Age group`) |>
   filter(!is.na(`Age group`))|>
-  summarise(mean_haemoglobin = mean(`Serum haemoglobin level`, na.rm = TRUE))
+  summarise(mean_haemoglobin = mean(`Serum haemoglobin level`,
+                                    na.rm = TRUE))
 
 # Merge the mean_hemoglobin back to the original data frame
 prostate_data_augment <- prostate_data_augment %>%
-  left_join(mean_haemoglobin_by_age, by = "Age group")
+  left_join(mean_haemoglobin_by_age,
+            by = "Age group")
 
 # Create an age-adjusted hemoglobin index
 prostate_data_augment <- prostate_data_augment |>
@@ -59,6 +65,7 @@ prostate_data_augment <- prostate_data_augment |>
 ```{r}
 #|label: Save data
 output_file_path <- "../data/03_dat_aug.tsv"
-write_delim( prostate_data_augment, file = output_file_path )
+write_delim( prostate_data_augment,
+             file = output_file_path )
 ```
 
