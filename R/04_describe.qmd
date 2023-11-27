@@ -139,9 +139,18 @@ mean_statistics
 ```{r}
 #| label: Cause of death across Age groups
 deaths_across_groups<-prostate_data_augment |>
-  filter(!is.na(`Cause of Death`)) |>
+  filter(`Cause of Death` != "9") %>%
   filter(!is.na(`Age group`)) |>
-  ggplot(aes(x = `Cause of Death`,
+  ggplot(aes(x = recode_factor(as.character(`Cause of Death`),
+                                "0" = "prostatic cancer",
+                                "3" = "other cancer",
+                                "1" = "heart or vascular",
+                                "2" = "cerebrovascular",
+                                "4" = "respiratory disease",
+                                "6" = "pulmonary embolus",
+                                "5"= "other specific non",
+                                "7" = "unspecified non",
+                                "8" ="unknown cause"),
              fill = as.factor(`Age group`))) +
   geom_bar(position = "dodge") +
   labs(title = "Cause of Death across Age Groups",
@@ -170,8 +179,22 @@ weight_age_across_cancers<-prostate_data_augment|>
              y = `Weight index`, 
              color = Risk)) +
   geom_point() +
-  facet_wrap(~`Cause of Death`)+
-  labs()
+    facet_wrap(
+    ~`Cause of Death`,
+    labeller = as_labeller(c(
+      "0" = "prostatic cancer",
+      "3" = "other cancer",
+      "1" = "heart or vascular",
+      "2" = "cerebrovascular",
+      "4" = "respiratory disease",
+      "6" = "pulmonary embolus"
+    ))
+  ) +
+  labs(
+    x = "Age",
+    y = "Weight Index",
+    title = "Weight Index across Cancers"
+  )
 weight_age_across_cancers
 
 #Save
@@ -293,7 +316,6 @@ dsp_sbp_causeofdeath <-prostate_data_augment|>
               se = FALSE, 
               color = "black", 
               lwd=0.3)+
-  #facet_wrap(~`Cause of Death`, ncol=10)+
   facet_wrap(~`Cause of Death`,
              labeller = labeller(`Cause of Death` = c(
     0 ~ "prostatic cancer",
@@ -302,9 +324,6 @@ dsp_sbp_causeofdeath <-prostate_data_augment|>
     2 ~ "cerebrovascular",
     4 ~ "respiratory disease",
     6 ~ "pulmonary embolus")))+
-    #5 ~ "other specific non", #maybe delete
-    #7 ~ "unspecified non", #maybe delete
-   # 8 ~ "unknown cause"))) + #maybe delete
   labs(x = "Diastolic blood pressure", 
        y = "Systolic blood pressure", 
        title = "Diastolic vs Systolic blood pressure by Cause of Death") +
