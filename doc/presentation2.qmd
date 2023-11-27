@@ -21,20 +21,35 @@ library(knitr)
 
 ## Materials and Methods
 
-<small>This data set is a result of Green and Byar's (1980, Bulletin Cancer, Paris, 67, 477-488) experiment from a randomized clinical trial comparing treatment for patients with prostate cancer in stages 3 and 4 available at https://hbiostat.org/data/repo/prostate.xls.
+<small>
+This data set is a result of Green and Byar's (1980, Bulletin Cancer, Paris, 67, 477-488) experiment from a randomized clinical trial comparing treatment for patients with prostate cancer in stages 3 and 4 available at https://hbiostat.org/data/repo/prostate.xls.
 
 We rigorously revised columns for clarity and consistency, changing text into numerical values for better analysis, when preparing the data for study.
 
-We decided to not remove whole rows due to missing values in columns that were not used for the downstreame analysis.
+We decided to not remove whole rows due to missing values in columns that were not used for the downstream analysis.
 
-Splitting columns to keep single-value cells was also important. These procedures were designed to tidy the data, paving the way for the downstream analysis, which included Logistic Regression Modelling and Principal Component Analysis.</small>
+Splitting columns to keep single-value cells was also important. These procedures were designed to tidy the data, paving the way for the downstream analysis, which included Logistic Regression Modelling and Principal Component Analysis.
+</small>
 
+::: columns
+::: {.column width="40%"}
 ```{r}
-#| out.width = '50%',
-#| fig.align = 'center'
+#| out.width = '100%',
+#| fig.align = 'left'
 knitr::include_graphics("figs/raw_dataset.png")
 
 ```
+:::
+
+::: {.column width="40%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("figs/tidy_dataset.png")
+
+```
+:::
+:::
 
 ------------------------------------------------------------------------
 
