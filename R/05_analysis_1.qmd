@@ -28,7 +28,10 @@ prostate_data_augment_test <- prostate_data_augment %>%
 
 prostate_data_augment_test <- prostate_data_augment_test %>%
   mutate(model_object = map(.x = data,
-      .f = ~ glm(`Dosage` ~ `bm` + `Weight index` + `Primary lesion size(cm^2)` + `Age Adjusted Haemoglobin`,
+      .f = ~ glm(`Dosage` ~ `bm` +
+                   `Weight index` +
+                   `Primary lesion size(cm^2)` +
+                   `Age Adjusted Haemoglobin`,
             family = binomial(link = "logit"),
             data = .x )))
 
@@ -36,23 +39,32 @@ prostate_data_augment_test <- prostate_data_augment_test %>%
 # Extract coefficients from the glm objects within each nested dataframe
 prostate_estimates <- prostate_data_augment_test %>%
   mutate(
-    model_summary = map(model_object, tidy)
+    model_summary = map(model_object, 
+                        tidy)
   ) %>%
   unnest(model_summary)
 
 # Create a new variable to flag p-values less than 0.05
 prostate_estimates <- prostate_estimates %>%
-  mutate(significant = ifelse(p.value < 0.05, "Yes", "No"))
+  mutate(significant = ifelse(p.value < 0.05,
+                              "Yes",
+                              "No"))
 
 ```
 
 ```{r}
 # Plotting coefficients
-plt_glm <- ggplot(prostate_estimates, aes(x = term, y = estimate, group = stage,  color = stage, shape = significant )) +
+plt_glm <- ggplot(prostate_estimates, aes(x = term, 
+                                          y = estimate, 
+                                          group = stage,  
+                                          color = stage, 
+                                          shape = significant )) +
   geom_point() +
   theme_minimal() +
-  labs(x = "Coefficients", y = "Estimate") +
-  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  labs(x = "Coefficients",
+       y = "Estimate") +
+  theme(axis.text.x = element_text(angle=45, 
+                                   hjust=1)) +
   ggtitle("Logistic Regression Coefficients to predict Dosage by Stage")
 
 plt_glm
@@ -65,10 +77,13 @@ ggsave('../results/glm_01.png', plt_glm)
 plt_glm <- ggplot(prostate_estimates, aes(x = term, y = estimate, fill = stage, shape = significant)) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_text(aes(label = significant), 
-            position = position_dodge(width = 0.9), vjust = -0.5, size = 3) +
+            position = position_dodge(width = 0.9), 
+            vjust = -0.5, 
+            size = 3) +
   theme_minimal() +
   labs(x = "Coefficients", y = "Estimate") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) +
   ylim( -20, 5 )
   ggtitle("Logistic Regression Coefficients to Predict Dosage by Stage")
 

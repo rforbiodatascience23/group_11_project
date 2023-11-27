@@ -4,18 +4,16 @@
 
 library("tidyverse")
 library("patchwork") #for plotting plots together (plo1/plot2)
-
 #library("viridis")
 library("dplyr")
-
 library("stringr") #count the number of occurrences of a given character in a string
-
 library("readr")
 ```
 
 ```{r}
 #| label: Loading data
-prostate_data <- read_delim(file = "../data/01_dat_load.tsv", show_col_types = FALSE)
+prostate_data <- read_delim(file = "../data/01_dat_load.tsv", 
+                            show_col_types = FALSE)
 ```
 
 ```{r}
@@ -23,7 +21,11 @@ prostate_data <- read_delim(file = "../data/01_dat_load.tsv", show_col_types = F
 #| warning: false
 
 prostate_data_clean <- prostate_data |>
-  separate("rx", into = c("Treatment regime", "mg","Drug"), sep =" ") |>
+  separate("rx", 
+           into = c("Treatment regime",
+                    "mg",
+                    "Drug"), 
+           sep =" ") |>
   select(-c("mg"))
 
 
@@ -49,7 +51,10 @@ prostate_data_clean <- prostate_data_clean |>
 #| warning: false
 
 prostate_data_clean <- prostate_data_clean |>
-  separate("status", into = c("Status", "Cause of Death"), sep ="\\-")
+  separate("status", 
+           into = c("Status", 
+                    "Cause of Death"), 
+           sep ="\\-")
 
 prostate_data_clean <- prostate_data_clean |>
   mutate(`Status` = case_when(
@@ -64,8 +69,7 @@ prostate_data_clean <- prostate_data_clean |>
 
 prostate_data_clean <- prostate_data_clean |>
   mutate(`pf` = if_else(
-    `pf` == "normal activity", 0,
-    1))
+    `pf` == "normal activity", 0,1))
   
 ```
 
@@ -107,6 +111,7 @@ prostate_data_clean <- prostate_data_clean |>
 #|label: Save data
 
 output_file_path <- "../data/02_dat_clean.tsv"
-write_delim( prostate_data_clean, file = output_file_path )
+write_delim( prostate_data_clean, 
+             file = output_file_path )
 
 ```

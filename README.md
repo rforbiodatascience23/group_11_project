@@ -2,7 +2,7 @@
 
 ## Project Contributors:
 
-s204760, orlamcginnity3
+s204760, orlamcginnity
 
 s215179, Alex131313131313
 
@@ -10,7 +10,7 @@ s215129, s215129
 
 s222757, annamelidi
 
-..., kledisalla
+s230702, kledisalla
 
 ## Description:
 
@@ -22,7 +22,7 @@ Byar & Greene prostate cancer data, from Andrews DF and Herzberg AM (1985): [Dat
 
 Once the supplementary data is downloaded in the form of a `.xlsx` file, it should be renamed to `raw_data.xlsx`and put in the folder `data/_raw` in order for getting running the script in the `R` folder ## NO NEED OF RENAMING; WE ALREADY HANDLE THIS ##
 
-This data set is a result of Green and Byar's (1980, Bulletin Cancer, Paris, 67, 477-488) experimentanal from a randomised clinical trial comparing treatment for patients with prostate cancer in stages 3 and 4. These authors assessed the effects of treatment on survival using an exponential regression model with treatment by covariate interactions. Clinical considerations led to conclusions being drawn about the relationship between treatment and different causes of death. This paper presents a more direct approach for assessing treatment effect based on a model which recognizes the competing-risks nature of the problem.
+This dataset is the outcome of a randomised clinical study conducted by Green and Byar (1980, Bulletin Cancer, Paris, 67, 477–488) that compared the treatments given to patients with prostate cancer in stages 3 and 4. These authors used an exponential regression model with treatment by covariate interactions to evaluate the impact of treatment on survival. Conclusions on the relationship between treatment and various causes of death were reached based on clinical considerations. This study offers a more straightforward method for evaluating the impact of a treatment based on a model that acknowledges the problem's competing hazards.
 
 The file from the original source was in a .xls format which was unable to be read by R. We could have converted it to .xlsx but we needed to install a package on the server, which is not allowed. For this reason, we have the data file in this repository, which is outside from the rforbiodatascience23.
  This is the link to the original file: https://hbiostat.org/data/repo/prostate.xls
