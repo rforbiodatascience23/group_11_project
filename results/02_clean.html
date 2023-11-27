@@ -354,17 +354,18 @@ display: none;
 
 <pre class="r"><code>library(&quot;tidyverse&quot;)
 library(&quot;patchwork&quot;) #for plotting plots together (plo1/plot2)
-
 #library(&quot;viridis&quot;)
 library(&quot;dplyr&quot;)
-
 library(&quot;stringr&quot;) #count the number of occurrences of a given character in a string
-
 library(&quot;readr&quot;)</code></pre>
 <pre class="r"><code>prostate_data &lt;- read_delim(file = &quot;../data/01_dat_load.tsv&quot;, 
                             show_col_types = FALSE)</code></pre>
 <pre class="r"><code>prostate_data_clean &lt;- prostate_data |&gt;
-  separate(&quot;rx&quot;, into = c(&quot;Treatment regime&quot;, &quot;mg&quot;,&quot;Drug&quot;), sep =&quot; &quot;) |&gt;
+  separate(&quot;rx&quot;, 
+           into = c(&quot;Treatment regime&quot;,
+                    &quot;mg&quot;,
+                    &quot;Drug&quot;), 
+           sep =&quot; &quot;) |&gt;
   select(-c(&quot;mg&quot;))
 
 
@@ -381,7 +382,10 @@ prostate_data_clean &lt;- prostate_data_clean |&gt;
   mutate(`Drug` = as.numeric(`Drug`)) |&gt;
   mutate(`Drug` = replace_na(`Drug`,0))</code></pre>
 <pre class="r"><code>prostate_data_clean &lt;- prostate_data_clean |&gt;
-  separate(&quot;status&quot;, into = c(&quot;Status&quot;, &quot;Cause of Death&quot;), sep =&quot;\\-&quot;)
+  separate(&quot;status&quot;, 
+           into = c(&quot;Status&quot;, 
+                    &quot;Cause of Death&quot;), 
+           sep =&quot;\\-&quot;)
 
 prostate_data_clean &lt;- prostate_data_clean |&gt;
   mutate(`Status` = case_when(
@@ -419,7 +423,8 @@ prostate_data_clean &lt;- prostate_data_clean |&gt;
 <pre class="r"><code>#|label: Save data
 
 output_file_path &lt;- &quot;../data/02_dat_clean.tsv&quot;
-write_delim( prostate_data_clean, file = output_file_path )</code></pre>
+write_delim( prostate_data_clean, 
+             file = output_file_path )</code></pre>
 
 
 

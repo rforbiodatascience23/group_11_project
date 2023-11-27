@@ -1,0 +1,221 @@
+---
+title: "Group 11: Analysis of Prostate Cancer Data"
+format:
+  revealjs:
+    embed-resources: true
+editor: visual
+---
+
+## Introduction {.centered}
+
+<small>Prostate cancer, a disease that significantly impacts the lives of men, requires a thoughtful exploration to refine diagnostic approaches and treatment regime. Understanding the complexities of this condition is crucial, emphasizing the importance of applying advanced data analysis techniques to patient data.
+
+Extracting meaningful insights from extensive data sets not only deepens our understanding of prostate cancer but also equips healthcare professionals with valuable information to personalize patient-by-patient.
+
+*(doi:10.1001/jama.2017.7248)*
+
+Our goal is to delve into the connections, patterns, and predictive models associated with prostate cancer and patient outcomes, ultimately enhancing our ability to provide more personalized and effective care for individuals facing this issue.</small>
+
+```{r}
+library(knitr)
+
+```
+
+------------------------------------------------------------------------
+
+## Materials and Methods
+
+<small> This data set is a result of Green and Byar's (1980, Bulletin Cancer, Paris, 67, 477-488) experiment from a randomized clinical trial comparing treatment for patients with prostate cancer in stages 3 and 4 available at https://hbiostat.org/data/repo/prostate.xls.
+
+We rigorously revised columns for clarity and consistency, changing text into numerical values for better analysis, when preparing the data for study.
+
+We decided to not remove whole rows due to missing values in columns that were not used for the downstream analysis.
+
+Splitting columns to keep single-value cells was also important. These procedures were designed to tidy the data, paving the way for the downstream analysis, which included Logistic Regression Modelling and Principal Component Analysis. </small>
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("figs/raw_dataset.png")
+
+```
+:::
+
+::: {.column width="40%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("figs/tidy_dataset.png")
+
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Data exploration
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/na_percentage.png")
+
+```
+:::
+
+::: {.column width="35%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/all_boxplots.png")
+
+```
+:::
+
+::: {.column width="34%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/causes_across_groups.png")
+
+```
+:::
+
+::: {.column width="34%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/wt_age_across_cancers.png")
+
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Data exploration
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/dsp_sbp_causeofdeath.png")
+
+```
+:::
+
+::: {.column width="40%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/dsp_sbp_historycvd.png")
+
+```
+:::
+
+::: {.column width="40%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/gleason_vs_lesion.png")
+
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Results: Logistic regression modelling
+
+<small>The objective is to predict *dosage* based on the bone metastasis(*bm)*, *weight* i*ndex, primary lesion size* and a*ge adjusted haemoglobin* for patients with 3 and 4 prostate cancer stage respectivelly. The coefficients of the above predictors are showed below as well as their significance as indicated by their p.values. </small>
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/glm_01.png")
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/glm_02.png")
+
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Results: Principal Component Analysis (PCA)
+
+<small>For Principal Component Analysis (PCA), three primary steps were undertaken. Initially, the data was examined in PC coordinates, followed by an analysis of the rotation matrix. Finally, emphasis was placed on understanding the variance explained by each Principal Component </small>
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/pca1.png")
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| out.width = '100%',
+#| fig.align = 'right'
+knitr::include_graphics("../results/pca_arrows.png")
+
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Discussion
+
+<small>The PCA analysis is used to look for groupings and patterns of the data based on all the appropriate variables PCA analysis did not work particularly well for this data, since just over 25% of the total variance is captured by the first principal component (PC1) , which is pretty low. Some data sets inherently require multiple principal components to represent different aspects of the variability, as is the case here.</small>
+
+```{r}
+#| out.width = '100%',
+#| fig.align = 'left'
+knitr::include_graphics("../results/pca1_bars.png")
+
+```
+
+------------------------------------------------------------------------
+
+*Predictors of Dosage for each Cancer Stage*
+
+<small>
+
+- In our Logistic Regression model, we encountered several predictors that did not exhibit significant influence on the dosage prediction per cancer stage.
+
+- Although valuable insights could be gained from a more explorative analysis using different model and predictors, we prioritized to mainly focus on the scopes of the course.
+
+</small>
+------------------------------------------------------------------------
+
+## Conclusion
+
+<small>
+
+-   Patients with a low Weight Index, defined as Weight in kilograms - Height in centimeters + 200, were significantly more likely to die, especially those over the age of 70. This increased risk was prevalent across all causes of mortality. Patients at all reported ages were consistently identified as being at high risk for prostate cancer.
+
+-   As the Gleason stage is increased so is the lesion size
+
+-   PCA is a powerful tool for dimensionality reduction and identifying patterns, but in our case the model did not show particularly obvious clustering
+
+-   The logistic regression model struggled to accurately predict dosage using 'bm,' 'weight index,' 'primary lesion size,' and 'age-adjusted hemoglobin,' for patients with stage 3 and 4 cancer revealing limitations in capturing their impact on patient outcomes.
+
+</small>
