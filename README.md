@@ -2,7 +2,7 @@
 
 ## Project Contributors:
 
-s204760, orlamcginnity3
+s204760, orlamcginnity
 
 s215179, Alex131313131313
 
