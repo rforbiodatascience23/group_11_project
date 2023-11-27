@@ -6,6 +6,7 @@ editor: visual
 
 ```{r}
 library(broom)
+library(scales)
 ```
 
 ```{r}
@@ -36,8 +37,6 @@ prostate_data_augment <-prostate_data_augment |>
 ```
 
 ```{r}
-library(broom) 
-library(scales)
 
 #method 1 - normalise data and standardise data
 
