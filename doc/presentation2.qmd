@@ -8,7 +8,7 @@ editor: visual
 
 ## Introduction {.centered}
 
-<small>Prostate cancer, a disease that significantly impacts the lives of men, requires a thoughtful exploration to refine diagnostic approaches and treatment regime. Understanding the complexities of this condition is crucial, emphasizing the importance of applying advanced data analysis techniques to patient data. Extracting meaningful insights from extensive data sets not only deepens our understanding of prostate cancer but also equips healthcare professionals with valuable information to personalize patient-by-patient.
+<small>Prostate cancer, a disease that significantly impacts the lives of men, requires a thoughtful exploration to refine diagnostic approaches and treatment regime. Understanding the complexities of this condition is crucial, emphasizing the importance of applying advanced data analysis techniques to patient data. Extracting meaningful insights from extensive data sets not only deepens our understanding of prostate cancer but also equips healthcare professionals with valuable information to personalize patient-by-patient (doi:10.1001/jama.2017.7248).
 
 Our goal is to delve into the connections, patterns, and predictive models associated with prostate cancer and patient outcomes, ultimately enhancing our ability to provide more personalized and effective care for individuals facing this issue.</small>
 
