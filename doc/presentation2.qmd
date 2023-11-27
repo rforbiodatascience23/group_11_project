@@ -19,7 +19,7 @@ library(knitr)
 
 ## Materials and Methods
 
-<small>We rigorously revised columns for clarity and consistency, changing text into numerical values for better analysis, when preparing the data for study. Replacing or removing missing values resulted in a more complete dataset. Splitting columns to keep single-value cells was also important. These procedures were designed to optimize the data, paving the way for more accurate and efficient analysis, resulting in sharper insights and informed decision-making.</small>
+<small>This data set is a result of Green and Byar's (1980, Bulletin Cancer, Paris, 67, 477-488) experiment from a randomized clinical trial comparing treatment for patients with prostate cancer in stages 3 and 4 available at https://hbiostat.org/data/repo/prostate.xls. We rigorously revised columns for clarity and consistency, changing text into numerical values for better analysis, when preparing the data for study. Replacing or removing missing values resulted in a more complete dataset. Splitting columns to keep single-value cells was also important. These procedures were designed to optimize the data, paving the way for more accurate and efficient analysis, resulting in sharper insights and informed decision-making.</small>
 
 ```{r}
 #| out.width = '50%',
