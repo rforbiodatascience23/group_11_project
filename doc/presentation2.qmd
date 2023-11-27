@@ -25,7 +25,7 @@ library(knitr)
 
 We rigorously revised columns for clarity and consistency, changing text into numerical values for better analysis, when preparing the data for study.
 
-Replacing or removing missing values resulted in a more complete dataset.
+We decided to not remove whole rows due to missing values in columns that were not used for the downstreame analysis.
 
 Splitting columns to keep single-value cells was also important. These procedures were designed to tidy the data, paving the way for more accurate and efficient analysis.</small>
 
