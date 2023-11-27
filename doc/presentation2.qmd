@@ -8,7 +8,9 @@ editor: visual
 
 ## Introduction {.centered}
 
-<small>Prostate cancer, a disease that significantly impacts the lives of men, requires a thoughtful exploration to refine diagnostic approaches and treatment regime. Understanding the complexities of this condition is crucial, emphasizing the importance of applying advanced data analysis techniques to patient data. Extracting meaningful insights from extensive data sets not only deepens our understanding of prostate cancer but also equips healthcare professionals with valuable information to personalize patient-by-patient Our goal is to delve into the connections, patterns, and predictive models associated with prostate cancer and patient outcomes, ultimately enhancing our ability to provide more personalized and effective care for individuals facing this issue.</small>
+<small>Prostate cancer, a disease that significantly impacts the lives of men, requires a thoughtful exploration to refine diagnostic approaches and treatment regime. Understanding the complexities of this condition is crucial, emphasizing the importance of applying advanced data analysis techniques to patient data. Extracting meaningful insights from extensive data sets not only deepens our understanding of prostate cancer but also equips healthcare professionals with valuable information to personalize patient-by-patient.
+
+Our goal is to delve into the connections, patterns, and predictive models associated with prostate cancer and patient outcomes, ultimately enhancing our ability to provide more personalized and effective care for individuals facing this issue.</small>
 
 ```{r}
 library(knitr)
@@ -19,7 +21,13 @@ library(knitr)
 
 ## Materials and Methods
 
-<small>This data set is a result of Green and Byar's (1980, Bulletin Cancer, Paris, 67, 477-488) experiment from a randomized clinical trial comparing treatment for patients with prostate cancer in stages 3 and 4 available at https://hbiostat.org/data/repo/prostate.xls. We rigorously revised columns for clarity and consistency, changing text into numerical values for better analysis, when preparing the data for study. Replacing or removing missing values resulted in a more complete dataset. Splitting columns to keep single-value cells was also important. These procedures were designed to optimize the data, paving the way for more accurate and efficient analysis, resulting in sharper insights and informed decision-making.</small>
+<small>This data set is a result of Green and Byar's (1980, Bulletin Cancer, Paris, 67, 477-488) experiment from a randomized clinical trial comparing treatment for patients with prostate cancer in stages 3 and 4 available at https://hbiostat.org/data/repo/prostate.xls.
+
+We rigorously revised columns for clarity and consistency, changing text into numerical values for better analysis, when preparing the data for study.
+
+Replacing or removing missing values resulted in a more complete dataset.
+
+Splitting columns to keep single-value cells was also important. These procedures were designed to tidy the data, paving the way for more accurate and efficient analysis.</small>
 
 ```{r}
 #| out.width = '50%',
@@ -168,26 +176,24 @@ knitr::include_graphics("../results/pca1_bars.png")
 
 ```
 
----
+------------------------------------------------------------------------
 
 *Predictors of Dosage for each Cancer Stage*
 
-
 <small>In our Logistic Regression model, we encountered several predictors that did not exhibit significant influence on the dosage prediction per cancer stage. Although valuable insights could be gained from a more explorative analysis, we prioritized to mainly focus on the scopes of the course.</small>
 
----
+------------------------------------------------------------------------
 
 ## Conclusion
 
 <small>
 
-- Patients with a low Weight Index, defined as Weight in kilograms - Height in centimeters + 200, were significantly more likely to die, especially those over the age of 70. This increased risk was prevalent across all causes of mortality. Patients at all reported ages were consistently identified as being at high risk for prostate cancer.
+-   Patients with a low Weight Index, defined as Weight in kilograms - Height in centimeters + 200, were significantly more likely to die, especially those over the age of 70. This increased risk was prevalent across all causes of mortality. Patients at all reported ages were consistently identified as being at high risk for prostate cancer.
 
-- As the Gleason stage is increased so is the lesion size
+-   As the Gleason stage is increased so is the lesion size
 
-- PCA is a powerful tool for dimensionality reduction and identifying patterns, but in our case
-the model did not show particularly obvious clustering
+-   PCA is a powerful tool for dimensionality reduction and identifying patterns, but in our case the model did not show particularly obvious clustering
 
-- The logistic regression model struggled to accurately predict dosage using 'bm,' 'weight index,' 'primary lesion size,' and 'age-adjusted hemoglobin,'  for patients with stage 3 and 4 cancer revealing limitations in capturing their impact on patient outcomes. 
+-   The logistic regression model struggled to accurately predict dosage using 'bm,' 'weight index,' 'primary lesion size,' and 'age-adjusted hemoglobin,' for patients with stage 3 and 4 cancer revealing limitations in capturing their impact on patient outcomes.
 
 </small>
