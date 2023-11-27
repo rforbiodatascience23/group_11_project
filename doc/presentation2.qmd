@@ -27,7 +27,7 @@ We rigorously revised columns for clarity and consistency, changing text into nu
 
 We decided to not remove whole rows due to missing values in columns that were not used for the downstreame analysis.
 
-Splitting columns to keep single-value cells was also important. These procedures were designed to tidy the data, paving the way for more accurate and efficient analysis.</small>
+Splitting columns to keep single-value cells was also important. These procedures were designed to tidy the data, paving the way for the downstream analysis, which included Logistic Regression Modelling and Principal Component Analysis.</small>
 
 ```{r}
 #| out.width = '50%',
