@@ -9,13 +9,6 @@ library(broom)
 ```
 
 ```{r}
-#| label: Loading the cleaned data 
-#| message: false
-
-prostate_data_augment<-read_delim("../data/03_dat_aug.tsv")
-```
-
-```{r}
 variables_to_plot <- prostate_data_augment[, c("Primary lesion size(cm^2)",
                                                "age", 
                                                "Serum haemoglobin level", 

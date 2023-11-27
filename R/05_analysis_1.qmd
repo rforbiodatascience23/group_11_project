@@ -12,8 +12,8 @@ library(broom)
 ```
 
 ```{r}
-# Fit logistic linear regression to model Dosage based on other variables for each stage
-prostate_data_augment_test <- prostate_data_augment %>% 
+#Filter out NAs in the variables we are interested in
+prostate_data_analysis_01 <- prostate_data_augment %>% 
   mutate(stage = factor(stage)) %>% 
   mutate(Dosage = factor(Dosage)) %>% 
   filter(!is.na(`bm`),
@@ -26,7 +26,8 @@ prostate_data_augment_test <- prostate_data_augment %>%
   nest() %>% 
   ungroup()
 
-prostate_data_augment_test <- prostate_data_augment_test %>%
+# Fit logistic linear regression to model Dosage based on other variables for each stage
+prostate_data_analysis_01 <- prostate_data_analysis_01 %>%
   mutate(model_object = map(.x = data,
       .f = ~ glm(`Dosage` ~ `bm` +
                    `Weight index` +
@@ -37,7 +38,7 @@ prostate_data_augment_test <- prostate_data_augment_test %>%
 
   
 # Extract coefficients from the glm objects within each nested dataframe
-prostate_estimates <- prostate_data_augment_test %>%
+prostate_estimates <- prostate_data_analysis_01 %>%
   mutate(
     model_summary = map(model_object, 
                         tidy)
